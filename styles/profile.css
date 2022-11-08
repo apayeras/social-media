@@ -1,0 +1,137 @@
+@import "homeStyle.css";
+
+.ProfileCenter {
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: scroll;
+}
+
+.ProfileImages>img:nth-of-type(1) {
+    height: 220px;
+
+}
+
+
+.followStatus>hr {
+    width: 85%;
+    border: 1px solid var(--hrColor);
+}
+
+.profileIcon {
+    fill: #2d99ec;
+}
+
+.Stories {
+    border-radius: 1.5rem;
+    width: 99%;
+    height: 125px;
+    background-color: #c7caf3da;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 30px;
+    overflow: auto;
+
+}
+
+.Stories>div {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+
+.PostSide>h3 {
+    margin: 0px;
+    gap: 0px;
+}
+
+.Story {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    justify-content: center;
+}
+
+.Story:first-child {
+    padding-left: 15px;
+}
+
+.Story:last-child {
+    padding-right: 15px;
+}
+
+.Story:hover {
+    cursor: pointer;
+}
+
+.Story>img {
+    object-fit: cover;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #AEC6F6;
+}
+
+.Story>span {
+    font-size: 12px;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Add {
+    margin-left: auto;
+}
+
+.PublicationsSide {
+    width: 99%;
+}
+
+.edit {
+    width: 18px;
+    margin-right: 5px;
+}
+
+.editButton {
+    margin: 10px 12px 0px;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    gap: 0.4rem;
+    height: 40px;
+    background-color: #AEC6F6;
+    border-radius: 5px;
+}
+
+.editButton>span {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.editButton:hover {
+    cursor: pointer;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.editButton:hover>svg {
+    cursor: pointer;
+    fill: #ffffff;
+}
+
+.ProfileName {
+    margin-top: -6px;
+}
+
+.followButton {
+    background-color: #FADDF3;
+}

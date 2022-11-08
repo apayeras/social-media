@@ -1,0 +1,10 @@
+@import "homeStyle.css";
+
+hr {
+    clear: both;
+    visibility: hidden;
+}
+
+.homeIcon {
+    fill: #2d99ec;
+}
