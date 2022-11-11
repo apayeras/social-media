@@ -91,20 +91,39 @@ include('querys/profile-information.php');
                     </div>
                     <?php
                     if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
-                        echo "<div class='editButton'>
+                        echo "<div id='profileModal' class='editButton'>
                         <span>EDITA</span>
                         <svg class='edit' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'>
                             <path d='M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z' />
                         </svg>
+                        </div>
+                        <div id='myModal' class='modal'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <span class='close'>&times;</span>
+                                <h2>Dades personals</h2>
+                            </div>
+                            <div class='form'>
+                                <div>
+                                    <span>Nom: </span><input class='infoInput' type='text' value='Antoni Payeras' />
+                                
+                                    <span>Descripció: </span><input class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value='' />
+                                </div>
+                                <div>
+                                    <span>Foto: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value='' />
+                                </div>
+                                <button class='button infoButton'>Actualitza</button>
+                            </div>
+                        </div>
                         </div>";
                     } else {
-                        if (true) {
+                        if ($_SESSION['mainFollowButton'] == 'Seguir') {
                             echo "<div onClick='manageFollow(\"" . $_SESSION['mainFollowButton'] . "\", " . $_SESSION['idProfile'] . ")' class='editButton followButton'>
                             <span style='text-transform: uppercase;'>" . $_SESSION['mainFollowButton'] . "</span>
                             <svg class='edit' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path d='M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z'/></svg>
                             </div>";
                         } else {
-                            echo "<div class='editButton followButton'>
+                            echo "<div onClick='manageFollow(\"" . $_SESSION['mainFollowButton'] . "\", " . $_SESSION['idProfile'] . ")' class='editButton followButton'>
                             <span style='text-transform: uppercase; font-size: 12px;'>" . $_SESSION['mainFollowButton'] . "</span>
                             <svg class='edit'style='width: 30px' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path d='M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM472 200H616c13.3 0 24 10.7 24 24s-10.7 24-24 24H472c-13.3 0-24-10.7-24-24s10.7-24 24-24z'/></svg>
                             </div>";
@@ -154,9 +173,26 @@ include('querys/profile-information.php');
                                     <span>Pie de foto</span>
                                 </div>";
                                 if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
-                                    echo "<div class='Story Add'>
+                                    echo "<div id='modalStories' class='Story Add'>
                                         <img>
                                         <span>Add story</span>
+                                    </div>
+                                    <div id='storyModal' class='modal'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <span class='close'>&times;</span>
+                                            <h2>Nova història</h2>
+                                        </div>
+                                        <div class='form'>
+                                            <div>
+                                                <span>Nom: </span><input class='infoInput' type='text' value='Antoni Payeras' />
+                                            
+                                                <span>Descripció: </span><input class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value='' />
+                                            </div>
+                                            
+                                            <button class='button infoButton'>Crear</button>
+                                        </div>
+                                    </div>
                                     </div>";
                                 }
                             } else {
@@ -250,6 +286,50 @@ include('querys/profile-information.php');
             </div>
         </div>
     </div>
+    <script>
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("profileModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        var modal2 = document.getElementById("storyModal");
+
+        // Get the button that opens the modal
+        var btn2 = document.getElementById("modalStories");
+
+        // Get the <span> element that closes the modal
+        var span2 = document.getElementsByClassName("close")[1];
+
+        // When the user clicks on the button, open the modal
+        btn2.onclick = function() {
+            modal2.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span2.onclick = function() {
+            modal2.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal2.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

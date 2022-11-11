@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include('db.php');
+    include('querys/db.php');
     if (isset($_POST['register'])) {
         $username = $_POST['username'];
         $email = $_POST['email'];
@@ -33,4 +33,3 @@
         
         }
     }
-?>

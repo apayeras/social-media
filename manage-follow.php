@@ -4,7 +4,7 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.html');
     exit;
 }
-include('db.php');
+include('querys/db.php');
 getDB();
 $_SESSION['changeSuggestedFollows'] = 'F';
 $idButton = 0;
