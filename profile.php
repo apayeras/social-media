@@ -185,11 +185,17 @@ include('querys/profile-information.php');
                                         </div>
                                         <div class='form'>
                                             <div>
-                                                <span>Nom: </span><input class='infoInput' type='text' value='Antoni Payeras' />
+                                                <span>Títol: &nbsp</span><input class='infoInput' type='text' value='Antoni Payeras' />
                                             
-                                                <span>Descripció: </span><input class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value='' />
+                                                <span>Privacitat: </span>
+                                                <select class='infoInput' id='privacity' name='privacity' style='padding: 9px;height: 40px;'>
+                                                    <option value='Public'>Pública</option>
+                                                    <option value='Private'>Privada</option>
+                                                </select>
                                             </div>
-                                            
+                                            <div>
+                                                <span>Icona: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value='' />
+                                            </div>
                                             <button class='button infoButton'>Crear</button>
                                         </div>
                                     </div>
