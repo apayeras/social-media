@@ -55,6 +55,7 @@
     flex-direction: column;
     gap: 0.3rem;
     justify-content: center;
+    align-items: center;
 }
 
 .Story:first-child {
@@ -75,6 +76,19 @@
     height: 65px;
     border-radius: 50%;
     background-color: #AEC6F6;
+}
+
+.Story>div {
+    object-fit: cover;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: #AEC6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .Story>span {
@@ -210,7 +224,7 @@
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #2d99ec;
+    background-color: #AEC6F6;
     color: white;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;

@@ -37,6 +37,14 @@ include('querys/profile-information.php');
             location.replace(`manage-follow.php?follow=${follow}&idProfile=${idProfile}&location=profile.php`);
         }
 
+        function addHistory() {
+            console.log(document.getElementById("historyName").value);
+            console.log(document.getElementById("historyPhoto").value);
+            var select = document.getElementById("privacity");
+            console.log(select.options[select.selectedIndex].value);
+            // location.replace(`manage-follow.php?follow=${follow}&idProfile=${idProfile}&location=profile.php`);
+        }
+
         function openMessages() {
             <?php unset($_SESSION['perfilSeleccionat']); ?>
             location.replace("chat.php");
@@ -157,7 +165,7 @@ include('querys/profile-information.php');
                                 <span>Pie de foto</span>
                                 </div>
                                 <div class='Story'>
-                                    <img>
+                                    <div>A</div>
                                     <span>Pie de foto</span>
                                 </div>
                                 <div class='Story'>
@@ -174,7 +182,9 @@ include('querys/profile-information.php');
                                 </div>";
                                 if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
                                     echo "<div id='modalStories' class='Story Add'>
-                                        <img>
+                                        <div>
+                                            <svg style=\"width: 20px;\"xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z'/></svg>
+                                        </div>
                                         <span>Add story</span>
                                     </div>
                                     <div id='storyModal' class='modal'>
@@ -185,7 +195,7 @@ include('querys/profile-information.php');
                                         </div>
                                         <div class='form'>
                                             <div>
-                                                <span>Títol: &nbsp</span><input class='infoInput' type='text' value='Antoni Payeras' />
+                                                <span>Títol: &nbsp</span><input id='historyName' class='infoInput' type='text' placeholder='p.e. Summertimes' />
                                             
                                                 <span>Privacitat: </span>
                                                 <select class='infoInput' id='privacity' name='privacity' style='padding: 9px;height: 40px;'>
@@ -194,9 +204,9 @@ include('querys/profile-information.php');
                                                 </select>
                                             </div>
                                             <div>
-                                                <span>Icona: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value='' />
+                                                <span>Icona: </span><input id='historyPhoto' class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value='' />
                                             </div>
-                                            <button class='button infoButton'>Crear</button>
+                                            <button onClick='addHistory()' class='button infoButton'>Crear</button>
                                         </div>
                                     </div>
                                     </div>";
