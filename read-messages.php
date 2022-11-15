@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
     if ($_SESSION['numMissatges'] == 0) {
         unset($_SESSION['numMissatges']);
     }
-    include('db.php');
+    include('querys/db.php');
     getDB();
     $str_query = "UPDATE missatge SET missatge.llegit = true where missatge.idEmissor = " . $_SESSION['perfilSeleccionat'] . " and missatge.idReceptor = " . $_SESSION['user_id'] . ";";
     $query = mysqli_query($con, $str_query);

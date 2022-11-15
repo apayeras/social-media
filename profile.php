@@ -38,11 +38,11 @@ include('querys/profile-information.php');
         }
 
         function addHistory() {
-            console.log(document.getElementById("historyName").value);
-            console.log(document.getElementById("historyPhoto").value);
-            var select = document.getElementById("privacity");
-            console.log(select.options[select.selectedIndex].value);
-            // location.replace(`manage-follow.php?follow=${follow}&idProfile=${idProfile}&location=profile.php`);
+            let historyName = document.getElementById("historyName").value;
+            let historyPhoto = document.getElementById("historyPhoto").value;
+            let select = document.getElementById("privacity");
+            let privacity = select.options[select.selectedIndex].value == "Private" ? 0 : 1;
+            location.replace(`manage-history.php?historyName=${historyName}&historyPhoto=${historyPhoto}&privacity=${privacity}`);
         }
 
         function openMessages() {
@@ -161,23 +161,23 @@ include('querys/profile-information.php');
                             <?php
                             if (true) {
                                 echo "<div class='Story'>
-                                <img>
-                                <span>Pie de foto</span>
-                                </div>
-                                <div class='Story'>
-                                    <div>A</div>
+                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
                                     <span>Pie de foto</span>
                                 </div>
                                 <div class='Story'>
-                                    <img>
+                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
                                     <span>Pie de foto</span>
                                 </div>
                                 <div class='Story'>
-                                    <img>
+                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
                                     <span>Pie de foto</span>
                                 </div>
                                 <div class='Story'>
-                                    <img>
+                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
+                                    <span>Pie de foto</span>
+                                </div>
+                                <div class='Story'>
+                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
                                     <span>Pie de foto</span>
                                 </div>";
                                 if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
