@@ -21,5 +21,7 @@ if (!isset($_SESSION['user_id'])) {
 
     get_num_messages($con, $_SESSION['user_id']);
 
+    get_personal_histories($con, $_SESSION['idProfile'], $_SESSION['user_id']);
+
     closeDB();
 }

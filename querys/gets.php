@@ -87,3 +87,23 @@ function get_follow_information($con, $user, $main_user)
         $_SESSION['mainFollowButton'] = 'Deixar de seguir';
     }
 }
+
+function get_personal_histories($con, $user, $main_user){
+    $str_query = "SELECT `id`, `nom`, `foto` FROM `historia` 
+    WHERE historia.idUsuari = ".$user."  AND 
+    (historia.privada = 0 OR 
+    ".$user." = ".$main_user." OR 
+    (SELECT COUNT(idSeguidor) FROM seguidors WHERE seguidors.idSeguidor = ".$main_user." AND seguidors.idSeguit = ".$user."));";
+
+    $query = mysqli_query($con, $str_query);
+
+    $id = 1;
+    while ($row = mysqli_fetch_array($query)) {
+        $_SESSION['history' . $id] = $row['id'];
+        $_SESSION['historyName' . $id] = $row['nom'];
+        $_SESSION['historyPhoto' . $id] = $row['foto'];
+        
+        $id += 1;
+    }
+    unset($_SESSION['history'.$id]);
+}
