@@ -107,3 +107,21 @@ function get_personal_histories($con, $user, $main_user){
     }
     unset($_SESSION['history'.$id]);
 }
+
+function get_user_publications($con, $user){
+    $str_query = "SELECT publicacio.id, `text`, `foto`, `nomUsuari` FROM `publicacio` 
+    JOIN usuari
+    ON usuari.id = publicacio.idUsuari WHERE idUsuari = ".$user." and idHistoria is null or ''";
+    $query = mysqli_query($con, $str_query);
+
+    $id = 1;
+    while ($row = mysqli_fetch_array($query)) {
+        $_SESSION['publication' . $id] = $row['id'];
+        $_SESSION['publicationText' . $id] = $row['text'];
+        $_SESSION['publicationPhoto' . $id] = $row['foto'];
+        $_SESSION['publicationUser' . $id] = $row['nomUsuari'];
+        
+        $id += 1;
+    }
+    unset($_SESSION['publication'.$id]);
+}

@@ -54,7 +54,7 @@ include('querys/home-information.php');
         <div class="ProfileCard">
           <div class="ProfileImages">
             <img src="https://images.pexels.com/photos/1287142/pexels-photo-1287142.jpeg?cs=srgb&dl=pexels-eberhard-grossgasteiger-1287142.jpg&fm=jpg" alt="">
-            <img src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png" alt="">
+            <img src="<?php echo $_SESSION['fotoPerfil']; ?>" alt="">
           </div>
           <div class="ProfileName">
             <span><?php echo $_SESSION['nomPerfil']; ?></span><span><?php echo $_SESSION['descripcio']; ?></span>
@@ -95,7 +95,7 @@ include('querys/home-information.php');
       </div>
       <div class="PostSide">
         <div class="PostShare">
-          <img src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png" alt="">
+        <img src="<?php echo $_SESSION['fotoPerfil']; ?>" alt="">
           <div>
             <input type="text" placeholder="What's happening">
             <div class="postOptions">
@@ -118,7 +118,7 @@ include('querys/home-information.php');
         </div>
         <div class="Posts">
           <div class="Post">
-            <img alt="">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Kung_Hei_Fat_Choi%21_%286834861529%29.jpg" alt="">
             <div class="detail">
               <div><span><b>Tzuyu</b></span><span> Happy New Year all friends! #2023</span></div>
             </div>

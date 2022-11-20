@@ -9,6 +9,8 @@ if (isset($_GET['idProfile'])) {
 <?php
 include('querys/profile-information.php');
 ?>
+
+<!doctype html>
 <html>
 
 <head>
@@ -95,7 +97,7 @@ include('querys/profile-information.php');
                 <div class="ProfileCard">
                     <div class="ProfileImages">
                         <img src="https://images.pexels.com/photos/1287142/pexels-photo-1287142.jpeg?cs=srgb&dl=pexels-eberhard-grossgasteiger-1287142.jpg&fm=jpg" alt="">
-                        <img src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png" alt="">
+                        <img src="<?php echo $_SESSION['fotoPerfil']; ?>" alt="">
                     </div>
                     <?php
                     if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
@@ -113,12 +115,12 @@ include('querys/profile-information.php');
                             </div>
                             <div class='form'>
                                 <div>
-                                    <span>Nom: </span><input class='infoInput' type='text' value='Antoni Payeras' />
+                                    <span>Nom: </span><input class='infoInput' type='text' value=\"" . $_SESSION['nomPerfil'] . "\" />
                                 
-                                    <span>Descripció: </span><input class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value='' />
+                                    <span>Descripció: </span><input class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value=\"" . $_SESSION['descripcio'] . "\" />
                                 </div>
                                 <div>
-                                    <span>Foto: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value='' />
+                                    <span>Foto: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value=\"" . ($_SESSION['fotoPerfil'] != 'https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' ? $_SESSION['fotoPerfil'] : ''). "\" />
                                 </div>
                                 <button class='button infoButton'>Actualitza</button>
                             </div>
@@ -159,27 +161,23 @@ include('querys/profile-information.php');
                     <div class="Stories">
                         <div>
                             <?php
-                            if (true) {
-                                echo "<div class='Story'>
-                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
-                                    <span>Pie de foto</span>
-                                </div>
-                                <div class='Story'>
-                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
-                                    <span>Pie de foto</span>
-                                </div>
-                                <div class='Story'>
-                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
-                                    <span>Pie de foto</span>
-                                </div>
-                                <div class='Story'>
-                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
-                                    <span>Pie de foto</span>
-                                </div>
-                                <div class='Story'>
-                                    <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
-                                    <span>Pie de foto</span>
-                                </div>";
+                            if (!isset($_SESSION['selectedHistory'])) {
+                                $id = 1;
+                                while(isset($_SESSION['history'.$id])){
+                                    echo "<div class='Story'>";
+                                    if($_SESSION['historyPhoto'.$id] == ''){
+                                        echo "<div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>";
+                                    } else {
+                                        echo "<img style='object-fit: cover;' src=\"".$_SESSION['historyPhoto'.$id]."\" alt=\"Wave-img\">";
+                                    }
+                                    echo "<span>".$_SESSION['historyName' . $id]."</span>
+                                    </div>";
+                                    $id += 1;
+                                }
+                                if($id == 1){
+                                    echo "<span style='margin: auto;'>No hi ha cap història disponible</span>";
+                                }
+                                
                                 if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
                                     echo "<div id='modalStories' class='Story Add'>
                                         <div>
@@ -212,13 +210,13 @@ include('querys/profile-information.php');
                                     </div>";
                                 }
                             } else {
-                                echo "<div class='editButton' style='margin: auto 0 10px 20px;width: 80px; height: 40px;'>
+                                echo "<div class='editButton' style='margin: auto 0 0 20px;width: 80px; height: 30px;'>
                                 <svg style='width: 10px;' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'><path d='M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z'/></svg>
                                 <span style='font-size: 12px;'>Torna</span>
                                 </div>
                                 <div class='Story' style='position: relative; margin: auto; left: -50px;'>
-                                <img style='width: 80px; height: 80px;'>
-                                <span>Pie de foto</span>
+                                <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
+                                    <span>Pie de foto</span>
                                 </div>";
                             }
                             ?>
@@ -228,44 +226,34 @@ include('querys/profile-information.php');
                 <div class="PublicationsSide">
                     <h3>Publicaciones</h3>
                     <div class="Posts">
-                        <div class="Post">
-                            <img alt="">
-                            <div class="detail">
-                                <div><span><b>Tzuyu</b></span><span> Happy New Year all friends! #2023</span></div>
-                            </div>
-                            <div class="postReact">
-                                <div class="reaction"><svg class="lnr lnr-heart">
-                                        <use xlink:href="#lnr-heart"></use>
-                                    </svg><span>&nbsp; Like</span></div>
-                                <div class="reaction"><svg class="lnr lnr-bubble">
-                                        <use xlink:href="#lnr-bubble"></use>
-                                    </svg><span>&nbsp; Comment</span></div>
-                                <div class="reaction"><svg class="lnr lnr-sync">
-                                        <use xlink:href="#lnr-sync"></use>
-                                    </svg><span>&nbsp; Retweet</span></div>
-                            </div>
-                            <span style="color: var(--gray); font-size: 12px;">2301 likes</span>
-                        </div>
-                        <div class="Post">
-                            <img alt="">
-                            <div class="detail">
-                                <div><span><b>Tzuyu</b></span><span> Happy New Year all friends! #2023</span></div>
-                            </div>
-                            <div class="postReact">
-                                <div class="reaction"><svg class="lnr lnr-heart">
-                                        <use xlink:href="#lnr-heart"></use>
-                                    </svg><span>&nbsp; Like</span></div>
-                                <div class="reaction"><svg class="lnr lnr-bubble">
-                                        <use xlink:href="#lnr-bubble"></use>
-                                    </svg><span>&nbsp; Comment</span></div>
-                                <div class="reaction"><svg class="lnr lnr-sync">
-                                        <use xlink:href="#lnr-sync"></use>
-                                    </svg><span>&nbsp; Retweet</span></div>
-                            </div>
-                            <span style="color: var(--gray); font-size: 12px;">2301 likes</span>
-                        </div>
+                        <?php 
+                            $id = 1;
+                            while(isset($_SESSION['publication' . $id])){
+                                echo "<div class=\"Post\">
+                                    <img src=\"".$_SESSION['publicationPhoto' . $id]."\">
+                                    <div class=\"detail\">
+                                        <div><span><b>".$_SESSION['publicationUser' . $id]."</b></span><span> ".$_SESSION['publicationText' . $id]."</span></div>
+                                    </div>
+                                    <div class=\"postReact\">
+                                        <div class=\"reaction\"><svg class=\"lnr lnr-heart\">
+                                                <use xlink:href=\"#lnr-heart\"></use>
+                                            </svg><span>&nbsp; Like</span></div>
+                                        <div class=\"reaction\"><svg class=\"lnr lnr-bubble\">
+                                                <use xlink:href=\"#lnr-bubble\"></use>
+                                            </svg><span>&nbsp; Comment</span></div>
+                                        <div class=\"reaction\"><svg class=\"lnr lnr-sync\">
+                                                <use xlink:href=\"#lnr-sync\"></use>
+                                            </svg><span>&nbsp; Retweet</span></div>
+                                    </div>
+                                    <span style=\"color: var(--gray); font-size: 12px;\">2301 likes</span>
+                                </div>";
+                                $id += 1;
+                            }
+                            if($id == 1){
+                                echo "<span style='margin: auto;'>No hi ha cap publicació disponible</span>";
+                            }
 
-
+                        ?>
                     </div>
                 </div>
             </div>
@@ -303,48 +291,44 @@ include('querys/profile-information.php');
         </div>
     </div>
     <script>
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
         var btn = document.getElementById("profileModal");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on the button, open the modal
-        btn.onclick = function() {
-            modal.style.display = "block";
+        if(btn != null){
+            var modal = document.getElementById("myModal");
+            var span = document.getElementsByClassName("close")[0];
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
         }
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        var modal2 = document.getElementById("storyModal");
-
-        // Get the button that opens the modal
         var btn2 = document.getElementById("modalStories");
-
-        // Get the <span> element that closes the modal
-        var span2 = document.getElementsByClassName("close")[1];
-
-        // When the user clicks on the button, open the modal
-        btn2.onclick = function() {
-            modal2.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span2.onclick = function() {
-            modal2.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
+        if(btn2 != null){
+            var modal2 = document.getElementById("storyModal");
+            var span2 = document.getElementsByClassName("close")[1];
+            btn2.onclick = function() {
+                modal2.style.display = "block";
+            }
+            span2.onclick = function() {
                 modal2.style.display = "none";
             }
         }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if(btn != null){
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            if(btn2 != null){
+                if (event.target == modal2) {
+                    modal2.style.display = "none";
+                }
+            }
+        }
+        
     </script>
 </body>
 
