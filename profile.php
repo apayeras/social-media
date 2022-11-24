@@ -15,6 +15,7 @@ include('querys/profile-information.php');
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Refresh" content="30">
     <link rel="stylesheet" href="styles/profile.css">
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

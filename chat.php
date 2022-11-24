@@ -8,6 +8,7 @@ if (isset($_GET['idchat'])) {
 
 <head>
     <meta charset="utf-8">
+    <!-- <meta http-equiv="Refresh" content="30"> -->
     <title>Chat1</title>
     <link rel="stylesheet" href="styles/chat.css">
     <script type="text/javascript">

@@ -2,10 +2,12 @@
 session_start();
 include('querys/home-information.php');
 ?>
+<!doctype html>
 <html>
 
 <head>
   <meta charset="UTF-8">
+  <!-- <meta http-equiv="Refresh" content="30"> -->
   <link rel="stylesheet" href="styles/home.css">
   <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -30,6 +32,39 @@ include('querys/home-information.php');
       <?php unset($_SESSION['perfilSeleccionat']); ?>
       location.replace("chat.php");
     }
+
+    function filterNames() {
+      var input, filter, filtered, div, spans, ul, li, a, i, j;
+      input = document.getElementById("searchInput");
+      filter = input.value.toUpperCase();
+      div = document.getElementsByClassName("filteredUser");
+      //filtered = div.getElementsByTagName("a");
+      if (filter.length == 0) {
+        for (i = 0; i < div.length; i++) {
+          div[i].style.display = "none";
+        }
+      } else {
+        j = 0;
+        for (i = 0; i < div.length && j < 8; i++) {
+          spans = div[i].getElementsByTagName("span");
+          txtValue1 = spans[0].textContent || spans[0].innerText;
+          txtValue2 = spans[1].textContent || spans[1].innerText;
+          if (txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+            div[i].style.display = "";
+            j++;
+          } else {
+            div[i].style.display = "none";
+          }
+        }
+      }
+    }
+
+    function disableFilter() {
+      div = document.getElementsByClassName("filteredUser");
+      for (i = 0; i < div.length; i++) {
+        div[i].style.display = "none";
+      }
+    }
   </script>
 </head>
 
@@ -41,12 +76,44 @@ include('querys/home-information.php');
       <div class="ProfileSide">
         <div class="LogoSearch">
           <img src="https://www.freeiconspng.com/uploads/abstract-circle-wave-logo-png-image-11.png" alt="Wave-img">
-          <div class="Search">
-            <input type="text" placeholder="Cercar">
-            <div class="s-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path>
-              </svg>
+          <div class="Search" id="searchPanel">
+            <div style="display: flex">
+              <input type="text" class="nameInput" id="searchInput" placeholder="Cercar" onkeyup="filterNames()" onfocusin="filterNames()" onfocusout="disableFilter()">
+              <div class="s-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="filteredUser" style="display: none;" onClick="">
+              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+              <div class='name'><span style="font-size:13px">Name1</span><span style="font-size:13px">Name2</span>
+              </div>
+            </div>
+            <div class="filteredUser" style="display: none;" onClick="">
+              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+              <div class='name'><span style="font-size:13px">Base</span><span style="font-size:13px">Blog</span>
+              </div>
+            </div>
+            <div class="filteredUser" style="display: none;" onClick="">
+              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+              <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
+              </div>
+            </div>
+            <div class="filteredUser" style="display: none;" onClick="">
+              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+              <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
+              </div>
+            </div>
+            <div class="filteredUser" style="display: none;" onClick="">
+              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+              <div class='name'><span style="font-size:13px">Support</span><span style="font-size:13px">Support</span>
+              </div>
+            </div>
+            <div class="filteredUser" style="display: none;" onClick="">
+              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+              <div class='name'><span style="font-size:13px">Tools</span><span style="font-size:13px">Support</span>
+              </div>
             </div>
           </div>
         </div>
@@ -95,7 +162,7 @@ include('querys/home-information.php');
       </div>
       <div class="PostSide">
         <div class="PostShare">
-        <img src="<?php echo $_SESSION['fotoPerfil']; ?>" alt="">
+          <img src="<?php echo $_SESSION['fotoPerfil']; ?>" alt="">
           <div>
             <input type="text" placeholder="What's happening">
             <div class="postOptions">
@@ -189,8 +256,6 @@ include('querys/home-information.php');
             </div>
             <span style="color: var(--gray); font-size: 12px;">2301 likes</span>
           </div>
-
-
         </div>
       </div>
       <div class="RightSide">

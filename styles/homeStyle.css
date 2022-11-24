@@ -23,21 +23,34 @@
     display: flex;
     gap: 0.75rem;
     width: 100%;
+    position: relative;
 }
 
 .LogoSearch>img {
     width: 45px;
+    height: 45px;
 }
 
 .Search {
-    display: flex;
     background-color: var(--inputColor);
     border-radius: 10px;
     padding: 5px;
-    width: 100%;
+    width: 75%;
+    border: 1px solid #ddd;
+    z-index: 1;
+    position: absolute;
+    margin-left: 55px;
 }
 
-.Search>input {
+.Search a {
+    color: black;
+    padding: 4px 6px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+}
+
+.nameInput {
     background-color: transparent;
     border: none;
     outline: none;
@@ -52,6 +65,16 @@
     border-radius: 5px;
     padding: 4px;
     color: white;
+}
+
+.filteredUser {
+    display: flex;
+    gap: 5px;
+    padding: 5px 2px;
+}
+
+.filteredUser:hover {
+    cursor: pointer;
 }
 
 .ProfileCard {
