@@ -3,6 +3,11 @@ session_start();
 if (isset($_GET['idProfile'])) {
     $_SESSION['idProfile'] = $_GET['idProfile'];
 }
+if (isset($_GET['history'])) {
+    $_SESSION['selectedHistory'] = $_GET['history'];
+} else {
+    unset($_SESSION['selectedHistory']);
+}
 
 ?>
 
@@ -15,7 +20,7 @@ include('querys/profile-information.php');
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Refresh" content="30">
+    <!-- <meta http-equiv="Refresh" content="30"> -->
     <link rel="stylesheet" href="styles/profile.css">
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -48,9 +53,46 @@ include('querys/profile-information.php');
             location.replace(`manage-history.php?historyName=${historyName}&historyPhoto=${historyPhoto}&privacity=${privacity}`);
         }
 
+        function selectHistory(idProfile, idHistory) {
+            location.replace(`profile.php?idProfile=${idProfile}&history=${idHistory}`);
+        }
+
         function openMessages() {
             <?php unset($_SESSION['perfilSeleccionat']); ?>
             location.replace("chat.php");
+        }
+
+        function filterNames() {
+            var input, filter, filtered, div, spans, ul, li, a, i, j;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            div = document.getElementsByClassName("filteredUser");
+            //filtered = div.getElementsByTagName("a");
+            if (filter.length == 0) {
+                for (i = 0; i < div.length; i++) {
+                    div[i].style.display = "none";
+                }
+            } else {
+                j = 0;
+                for (i = 0; i < div.length && j < 8; i++) {
+                    spans = div[i].getElementsByTagName("span");
+                    txtValue1 = spans[0].textContent || spans[0].innerText;
+                    txtValue2 = spans[1].textContent || spans[1].innerText;
+                    if (txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+                        div[i].style.display = "";
+                        j++;
+                    } else {
+                        div[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function disableFilter() {
+            div = document.getElementsByClassName("filteredUser");
+            for (i = 0; i < div.length; i++) {
+                div[i].style.display = "none";
+            }
         }
     </script>
 </head>
@@ -63,12 +105,44 @@ include('querys/profile-information.php');
             <div class="ProfileSide">
                 <div class="LogoSearch">
                     <img src="https://www.freeiconspng.com/uploads/abstract-circle-wave-logo-png-image-11.png" alt="Wave-img">
-                    <div class="Search">
-                        <input type="text" placeholder="Cercar">
-                        <div class="s-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path>
-                            </svg>
+                    <div class="Search" id="searchPanel">
+                        <div style="display: flex">
+                            <input type="text" class="nameInput" id="searchInput" placeholder="Cercar" onkeyup="filterNames()" onfocusin="filterNames()" onfocusout="disableFilter()">
+                            <div class="s-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filteredUser" style="display: none;" onClick="">
+                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+                            <div class='name'><span style="font-size:13px">Name1</span><span style="font-size:13px">Name2</span>
+                            </div>
+                        </div>
+                        <div class="filteredUser" style="display: none;" onClick="">
+                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+                            <div class='name'><span style="font-size:13px">Base</span><span style="font-size:13px">Blog</span>
+                            </div>
+                        </div>
+                        <div class="filteredUser" style="display: none;" onClick="">
+                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+                            <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
+                            </div>
+                        </div>
+                        <div class="filteredUser" style="display: none;" onClick="">
+                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+                            <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
+                            </div>
+                        </div>
+                        <div class="filteredUser" style="display: none;" onClick="">
+                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+                            <div class='name'><span style="font-size:13px">Support</span><span style="font-size:13px">Support</span>
+                            </div>
+                        </div>
+                        <div class="filteredUser" style="display: none;" onClick="">
+                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
+                            <div class='name'><span style="font-size:13px">Tools</span><span style="font-size:13px">Support</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,7 +195,7 @@ include('querys/profile-information.php');
                                     <span>Descripció: </span><input class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value=\"" . $_SESSION['descripcio'] . "\" />
                                 </div>
                                 <div>
-                                    <span>Foto: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value=\"" . ($_SESSION['fotoPerfil'] != 'https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' ? $_SESSION['fotoPerfil'] : ''). "\" />
+                                    <span>Foto: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value=\"" . ($_SESSION['fotoPerfil'] != 'https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' ? $_SESSION['fotoPerfil'] : '') . "\" />
                                 </div>
                                 <button class='button infoButton'>Actualitza</button>
                             </div>
@@ -164,21 +238,21 @@ include('querys/profile-information.php');
                             <?php
                             if (!isset($_SESSION['selectedHistory'])) {
                                 $id = 1;
-                                while(isset($_SESSION['history'.$id])){
-                                    echo "<div class='Story'>";
-                                    if($_SESSION['historyPhoto'.$id] == ''){
-                                        echo "<div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>";
+                                while (isset($_SESSION['history' . $id])) {
+                                    echo "<div class='Story' onClick='selectHistory(" . $_SESSION['idProfile'] . "," . $_SESSION['history' . $id] . ")'>";
+                                    if ($_SESSION['historyPhoto' . $id] == '') {
+                                        echo "<div style='text-transform: uppercase;'>" . $_SESSION['nomPerfil'][0] . "</div>";
                                     } else {
-                                        echo "<img style='object-fit: cover;' src=\"".$_SESSION['historyPhoto'.$id]."\" alt=\"Wave-img\">";
+                                        echo "<img style='object-fit: cover;' src=\"" . $_SESSION['historyPhoto' . $id] . "\" alt=\"Wave-img\">";
                                     }
-                                    echo "<span>".$_SESSION['historyName' . $id]."</span>
+                                    echo "<span>" . $_SESSION['historyName' . $id] . "</span>
                                     </div>";
                                     $id += 1;
                                 }
-                                if($id == 1){
+                                if ($id == 1) {
                                     echo "<span style='margin: auto;'>No hi ha cap història disponible</span>";
                                 }
-                                
+
                                 if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
                                     echo "<div id='modalStories' class='Story Add'>
                                         <div>
@@ -211,14 +285,20 @@ include('querys/profile-information.php');
                                     </div>";
                                 }
                             } else {
-                                echo "<div class='editButton' style='margin: auto 0 0 20px;width: 80px; height: 30px;'>
+                                echo "<div class='editButton' onClick='viewProfile(" . $_SESSION['idProfile'] . ")' style='margin: auto 0 0 20px;width: 80px; height: 30px;'>
                                 <svg style='width: 10px;' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'><path d='M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z'/></svg>
                                 <span style='font-size: 12px;'>Torna</span>
-                                </div>
-                                <div class='Story' style='position: relative; margin: auto; left: -50px;'>
-                                <div style='text-transform: uppercase;'>".$_SESSION['nomPerfil'][0]."</div>
-                                    <span>Pie de foto</span>
                                 </div>";
+                                if ($_SESSION['selectedHasContent'] == 1) {
+                                    echo "<div class='Story' style='margin: auto;left: -50px;position: relative;'>";
+                                    if ($_SESSION['selectedHistoryPhoto'] == '') {
+                                        echo "<div style='text-transform: uppercase;'>" . $_SESSION['nomPerfil'][0] . "</div>";
+                                    } else {
+                                        echo "<img style='object-fit: cover;' src=\"" . $_SESSION['selectedHistoryPhoto'] . "\" >";
+                                    }
+                                    echo "<span>" . $_SESSION['selectedHistoryName'] . "</span>
+                                    </div>";
+                                }
                             }
                             ?>
                         </div>
@@ -227,13 +307,13 @@ include('querys/profile-information.php');
                 <div class="PublicationsSide">
                     <h3>Publicaciones</h3>
                     <div class="Posts">
-                        <?php 
-                            $id = 1;
-                            while(isset($_SESSION['publication' . $id])){
-                                echo "<div class=\"Post\">
-                                    <img src=\"".$_SESSION['publicationPhoto' . $id]."\">
+                        <?php
+                        $id = 1;
+                        while (isset($_SESSION['publication' . $id])) {
+                            echo "<div class=\"Post\">
+                                    <img src=\"" . $_SESSION['publicationPhoto' . $id] . "\">
                                     <div class=\"detail\">
-                                        <div><span><b>".$_SESSION['publicationUser' . $id]."</b></span><span> ".$_SESSION['publicationText' . $id]."</span></div>
+                                        <div><span><b>" . $_SESSION['publicationUser' . $id] . "</b></span><span> " . $_SESSION['publicationText' . $id] . "</span></div>
                                     </div>
                                     <div class=\"postReact\">
                                         <div class=\"reaction\"><svg class=\"lnr lnr-heart\">
@@ -248,11 +328,11 @@ include('querys/profile-information.php');
                                     </div>
                                     <span style=\"color: var(--gray); font-size: 12px;\">2301 likes</span>
                                 </div>";
-                                $id += 1;
-                            }
-                            if($id == 1){
-                                echo "<span style='margin: auto;'>No hi ha cap publicació disponible</span>";
-                            }
+                            $id += 1;
+                        }
+                        if ($id == 1) {
+                            echo "<span style='margin: auto;'>" . (isset($_SESSION['selectedHistory']) ? 'No hi ha cap publicació disponible per aquesta història' : 'No hi ha cap publicació disponible') . "</span>";
+                        }
 
                         ?>
                     </div>
@@ -293,7 +373,7 @@ include('querys/profile-information.php');
     </div>
     <script>
         var btn = document.getElementById("profileModal");
-        if(btn != null){
+        if (btn != null) {
             var modal = document.getElementById("myModal");
             var span = document.getElementsByClassName("close")[0];
             btn.onclick = function() {
@@ -305,7 +385,7 @@ include('querys/profile-information.php');
         }
 
         var btn2 = document.getElementById("modalStories");
-        if(btn2 != null){
+        if (btn2 != null) {
             var modal2 = document.getElementById("storyModal");
             var span2 = document.getElementsByClassName("close")[1];
             btn2.onclick = function() {
@@ -315,21 +395,20 @@ include('querys/profile-information.php');
                 modal2.style.display = "none";
             }
         }
-        
+
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-            if(btn != null){
+            if (btn != null) {
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
             }
-            if(btn2 != null){
+            if (btn2 != null) {
                 if (event.target == modal2) {
                     modal2.style.display = "none";
                 }
             }
         }
-        
     </script>
 </body>
 

@@ -88,12 +88,13 @@ function get_follow_information($con, $user, $main_user)
     }
 }
 
-function get_personal_histories($con, $user, $main_user){
+function get_personal_histories($con, $user, $main_user)
+{
     $str_query = "SELECT `id`, `nom`, `foto` FROM `historia` 
-    WHERE historia.idUsuari = ".$user."  AND 
+    WHERE historia.idUsuari = " . $user . "  AND 
     (historia.privada = 0 OR 
-    ".$user." = ".$main_user." OR 
-    (SELECT COUNT(idSeguidor) FROM seguidors WHERE seguidors.idSeguidor = ".$main_user." AND seguidors.idSeguit = ".$user."));";
+    " . $user . " = " . $main_user . " OR 
+    (SELECT COUNT(idSeguidor) FROM seguidors WHERE seguidors.idSeguidor = " . $main_user . " AND seguidors.idSeguit = " . $user . "));";
 
     $query = mysqli_query($con, $str_query);
 
@@ -102,16 +103,39 @@ function get_personal_histories($con, $user, $main_user){
         $_SESSION['history' . $id] = $row['id'];
         $_SESSION['historyName' . $id] = $row['nom'];
         $_SESSION['historyPhoto' . $id] = $row['foto'];
-        
+
         $id += 1;
     }
-    unset($_SESSION['history'.$id]);
+    unset($_SESSION['history' . $id]);
 }
 
-function get_user_publications($con, $user){
+function get_history_content($con, $user, $main_user, $idHistoria)
+{
+    $str_query = "SELECT `id`, `nom`, `foto` FROM `historia` 
+    WHERE historia.idUsuari = " . $user . "  AND 
+    historia.id = " . $idHistoria . " AND
+    (historia.privada = 0 OR 
+    " . $user . " = " . $main_user . " OR 
+    (SELECT COUNT(idSeguidor) FROM seguidors WHERE seguidors.idSeguidor = " . $main_user . " AND seguidors.idSeguit = " . $user . "));";
+
+    $query = mysqli_query($con, $str_query);
+    if ($row = mysqli_fetch_array($query)) {
+        $_SESSION['selectedHasContent'] = 1;
+        $_SESSION['selectedHistoryName'] = $row['nom'];
+        $_SESSION['selectedHistoryPhoto'] = $row['foto'];
+    } else {
+        $_SESSION['selectedHasContent'] = 0;
+    }
+}
+function get_history_publications($con, $user, $idHistoria)
+{
+    if ($_SESSION['selectedHasContent'] == 0) {
+        unset($_SESSION['publication1']);
+        return;
+    }
     $str_query = "SELECT publicacio.id, `text`, `foto`, `nomUsuari` FROM `publicacio` 
     JOIN usuari
-    ON usuari.id = publicacio.idUsuari WHERE idUsuari = ".$user." and idHistoria is null or ''";
+    ON usuari.id = publicacio.idUsuari WHERE idUsuari = " . $user . " and idHistoria = " . $idHistoria;
     $query = mysqli_query($con, $str_query);
 
     $id = 1;
@@ -120,8 +144,27 @@ function get_user_publications($con, $user){
         $_SESSION['publicationText' . $id] = $row['text'];
         $_SESSION['publicationPhoto' . $id] = $row['foto'];
         $_SESSION['publicationUser' . $id] = $row['nomUsuari'];
-        
+
         $id += 1;
     }
-    unset($_SESSION['publication'.$id]);
+    unset($_SESSION['publication' . $id]);
+}
+
+function get_user_publications($con, $user)
+{
+    $str_query = "SELECT publicacio.id, `text`, `foto`, `nomUsuari` FROM `publicacio` 
+    JOIN usuari
+    ON usuari.id = publicacio.idUsuari WHERE idUsuari = " . $user . " and idHistoria is null or ''";
+    $query = mysqli_query($con, $str_query);
+
+    $id = 1;
+    while ($row = mysqli_fetch_array($query)) {
+        $_SESSION['publication' . $id] = $row['id'];
+        $_SESSION['publicationText' . $id] = $row['text'];
+        $_SESSION['publicationPhoto' . $id] = $row['foto'];
+        $_SESSION['publicationUser' . $id] = $row['nomUsuari'];
+
+        $id += 1;
+    }
+    unset($_SESSION['publication' . $id]);
 }

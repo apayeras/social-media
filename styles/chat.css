@@ -101,7 +101,7 @@ h2 {
   width: 100%;
 }
 
-.name>div{
+.name>div {
   width: 100%;
 }
 
@@ -134,7 +134,7 @@ h2 {
   padding-top: 7px;
   font-size: 12px;
   width: 90%;
-  color:#63a9de;
+  color: #63a9de;
   text-align: right;
 }
 
@@ -149,7 +149,7 @@ h2 {
   height: 100%;
 }
 
-.NavContainer{
+.NavContainer {
   padding-top: 15px;
   width: 18rem;
   align-self: flex-end;
@@ -165,6 +165,7 @@ h2 {
 .navIcons>svg {
   height: 24px;
 }
+
 .navIcons>svg:hover {
   cursor: pointer;
   fill: #2d99ec;
@@ -174,7 +175,7 @@ h2 {
   fill: #2d99ec;
 }
 
-.messages{
+.messages {
   position: absolute;
   font-weight: bold;
   z-index: 1;
@@ -227,16 +228,16 @@ h2 {
   gap: 0.5rem;
 }
 
-.message>span:nth-child(3){
-    font-size: 0.7rem;
-    color: var(--textColor);
-    align-self: end;
+.message>span:nth-child(2) {
+  font-size: 0.7rem;
+  color: var(--textColor);
+  align-self: end;
 }
 
 .own {
   align-self: flex-end;
   border-radius: 1rem 1rem 0 1rem;
-  background:  #63a9de;
+  background: #63a9de;
 }
 
 .img-chat {
@@ -252,4 +253,3 @@ h2 {
 .select-chat>span {
   color: #588690;
 }
-

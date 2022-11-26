@@ -125,7 +125,6 @@ if (isset($_GET['idchat'])) {
                             if (isset($_SESSION['idMissatge' . $id])) {
                                 echo "<div class=\"" . $_SESSION['emissor' . $id] . "\">
                                     <span>" . $_SESSION['text' . $id] . "</span>
-                                    <span><a href=\"profile.php?id=" . $_SESSION['idMissatge' . $id] . "\">Click aquí para visualizarla</a></span>
                                     <span>" . $_SESSION['data' . $id] . "</span>
                                     </div>";
                                 $id += 1;
