@@ -67,7 +67,6 @@ include('querys/profile-information.php');
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
             div = document.getElementsByClassName("filteredUser");
-            //filtered = div.getElementsByTagName("a");
             if (filter.length == 0) {
                 for (i = 0; i < div.length; i++) {
                     div[i].style.display = "none";
@@ -250,15 +249,23 @@ include('querys/profile-information.php');
                                     $id += 1;
                                 }
                                 if ($id == 1) {
-                                    echo "<span style='margin: auto;'>No hi ha cap història disponible</span>";
+                                    if ($_SESSION['idProfile'] != $_SESSION['user_id']) {
+                                        echo "<span style='margin: auto;'>No hi ha cap història disponible</span>";
+                                    } else {
+                                        echo "<span style='margin: auto; text-align:center;'>No hi ha cap història disponible</span>";
+                                    }
                                 }
 
                                 if ($_SESSION['idProfile'] == $_SESSION['user_id']) {
-                                    echo "<div id='modalStories' class='Story Add'>
-                                        <div>
-                                            <svg style=\"width: 20px;\"xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z'/></svg>
-                                        </div>
-                                        <span>Add story</span>
+                                    if ($id == 1) {
+                                        echo "<div id='modalStories' style='margin-left: 0px;' class='Story Add'>";
+                                    } else {
+                                        echo "<div id='modalStories' class='Story Add'>";
+                                    }
+                                    echo "<div>
+                                        <svg style=\"width: 20px;\"xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z'/></svg>
+                                    </div>
+                                    <span>Add story</span>
                                     </div>
                                     <div id='storyModal' class='modal'>
                                     <div class='modal-content'>
