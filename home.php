@@ -59,12 +59,34 @@ include('querys/home-information.php');
       }
     }
 
-    function disableFilter() {
-      div = document.getElementsByClassName("filteredUser");
+    function loadHistory(id, historyName) {
+      var text = document.getElementById('publicationText').value;
+      location.replace(`home-history.php?text=${text}&historyId=${id}&historyName=${historyName}`);
+    }
+
+    function openHistorySelector() {
+      div = document.getElementsByClassName("historySelector");
       for (i = 0; i < div.length; i++) {
-        div[i].style.display = "none";
+        div[i].style.display = "";
       }
     }
+
+    document.addEventListener('mouseup', function(e) {
+      var container = document.getElementById('divUsers');
+      if (!container.contains(e.target)) {
+        div = document.getElementsByClassName("filteredUser");
+        for (i = 0; i < div.length; i++) {
+          div[i].style.display = "none";
+        }
+      }
+      var container2 = document.getElementById('divHistory');
+      if (!container2.contains(e.target)) {
+        div2 = document.getElementsByClassName("historySelector");
+        for (i = 0; i < div2.length; i++) {
+          div2[i].style.display = "none";
+        }
+      }
+    });
   </script>
 </head>
 
@@ -77,44 +99,26 @@ include('querys/home-information.php');
         <div class="LogoSearch">
           <img src="https://www.freeiconspng.com/uploads/abstract-circle-wave-logo-png-image-11.png" alt="Wave-img">
           <div class="Search" id="searchPanel">
-            <div style="display: flex">
-              <input type="text" class="nameInput" id="searchInput" placeholder="Cercar" onkeyup="filterNames()" onfocusin="filterNames()" onfocusout="disableFilter()">
+            <div id="divUsers" style="display: flex">
+              <input type="text" class="nameInput" id="searchInput" placeholder="Cercar" onkeyup="filterNames()" onfocusin="filterNames()">
               <div class="s-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path>
                 </svg>
               </div>
             </div>
-            <div class="filteredUser" style="display: none;" onClick="">
-              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-              <div class='name'><span style="font-size:13px">Name1</span><span style="font-size:13px">Name2</span>
-              </div>
-            </div>
-            <div class="filteredUser" style="display: none;" onClick="">
-              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-              <div class='name'><span style="font-size:13px">Base</span><span style="font-size:13px">Blog</span>
-              </div>
-            </div>
-            <div class="filteredUser" style="display: none;" onClick="">
-              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-              <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
-              </div>
-            </div>
-            <div class="filteredUser" style="display: none;" onClick="">
-              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-              <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
-              </div>
-            </div>
-            <div class="filteredUser" style="display: none;" onClick="">
-              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-              <div class='name'><span style="font-size:13px">Support</span><span style="font-size:13px">Support</span>
-              </div>
-            </div>
-            <div class="filteredUser" style="display: none;" onClick="">
-              <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-              <div class='name'><span style="font-size:13px">Tools</span><span style="font-size:13px">Support</span>
-              </div>
-            </div>
+            <?php
+            $id = 1;
+            while (isset($_SESSION['usuari' . $id])) {
+              echo "<div class=\"filteredUser\" style=\"display: none;\" onClick=\"viewProfile(" . $_SESSION['usuari' . $id] . ")\">
+                <img style=\"width: 2rem; height: 2rem; border-radius: 50%;\" src=\"" . $_SESSION['usuariFoto' . $id] . "\">
+                <div class='name'><span style=\"font-size:13px\">" . $_SESSION['usuariPerfil' . $id] . "</span><span style=\"font-size:13px\">" . $_SESSION['usuariNom' . $id] . "</span>
+                </div>
+              </div>";
+              $id += 1;
+            }
+            ?>
+
           </div>
         </div>
 
@@ -164,12 +168,20 @@ include('querys/home-information.php');
         <div class="PostShare">
           <img src="<?php echo $_SESSION['fotoPerfil']; ?>" alt="">
           <div>
-            <div class="selectedHistory"><span style="margin-left:10px;">història: </span><span id="historySelected" style="margin-left: 5px; font-weight: bold;">Remembers</span>
-              <svg class="deleteButton" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path d="M175 175C184.4 165.7 199.6 165.7 208.1 175L255.1 222.1L303 175C312.4 165.7 327.6 165.7 336.1 175C346.3 184.4 346.3 199.6 336.1 208.1L289.9 255.1L336.1 303C346.3 312.4 346.3 327.6 336.1 336.1C327.6 346.3 312.4 346.3 303 336.1L255.1 289.9L208.1 336.1C199.6 346.3 184.4 346.3 175 336.1C165.7 327.6 165.7 312.4 175 303L222.1 255.1L175 208.1C165.7 199.6 165.7 184.4 175 175V175zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"></path>
-              </svg>
-            </div>
-            <input type="text" placeholder="What's happening">
+            <?php
+            if (isset($_SESSION['selectedHistoryId'])) {
+              echo "<div class=\"selectedHistory\"><span style=\"margin-left:10px;\">història: </span><span id=\"historySelected\" style=\"margin-left: 5px; font-weight: bold;\">" . $_SESSION['selectedHistoryName'] . "</span>
+                <svg class=\"deleteButton\" onClick=\"loadHistory(-1, '')\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\">
+                  <path d=\"M175 175C184.4 165.7 199.6 165.7 208.1 175L255.1 222.1L303 175C312.4 165.7 327.6 165.7 336.1 175C346.3 184.4 346.3 199.6 336.1 208.1L289.9 255.1L336.1 303C346.3 312.4 346.3 327.6 336.1 336.1C327.6 346.3 312.4 346.3 303 336.1L255.1 289.9L208.1 336.1C199.6 346.3 184.4 346.3 175 336.1C165.7 327.6 165.7 312.4 175 303L222.1 255.1L175 208.1C165.7 199.6 165.7 184.4 175 175V175zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z\"></path>
+                </svg>
+              </div>";
+            }
+            if (isset($_SESSION['inputText'])) {
+              echo "<input id='publicationText' type='text' placeholder='Que està passant...' value='" . $_SESSION['inputText'] . "'>";
+            } else {
+              echo "<input id='publicationText' type='text' placeholder='Que està passant...'>";
+            }
+            ?>
             <div class="postOptions">
               <div class="option" style="color: var(--photo);"><svg class="lnr lnr-picture">
                   <use xlink:href="#lnr-picture"></use>
@@ -177,22 +189,26 @@ include('querys/home-information.php');
               <div class="option" style="color: var(--video);"><svg class="lnr lnr-film-play">
                   <use xlink:href="#lnr-film-play"></use>
                 </svg><span>Afegir video</span></div>
-              <div style="position: relative;">
+              <div id="divHistory" style="position: relative;" onClick="openHistorySelector()">
                 <div class="option" style="color: var(--history);"><svg class="lnr lnr-list">
                     <use xlink:href="#lnr-list"></use>
                   </svg><span>Afegir a història</span>
                 </div>
-                <div style="position:absolute; border-radius: 8px;">
-                  <div class="historySelector" style="background-color:white;" onClick="">
-                    <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                    <div class='name'><span style="font-size:12px">Name 1</span>
-                    </div>
-                  </div>
-                  <div class="historySelector" style="background-color:white;" onClick="">
-                    <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                    <div class='name'><span style="font-size:12px">Name1</span>
-                    </div>
-                  </div>
+                <div style="position:absolute; border-radius: 8px; background-color: rgba(255, 255, 255, 0.84)">
+                  <?php
+                  $id = 1;
+                  while (isset($_SESSION['history' . $id])) {
+                    echo "<div class='historySelector' style='display:none;' onClick='loadHistory(" . $_SESSION['history' . $id] . ",\"" . $_SESSION['historyName' . $id] . "\")'>";
+                    if ($_SESSION['historyPhoto' . $id] == '') {
+                      echo "<div style='text-transform: uppercase; font-size: 14px;'>" . $_SESSION['nomPerfil'][0] . "</div>";
+                    } else {
+                      echo "<img style='object-fit: cover;' src=\"" . $_SESSION['historyPhoto' . $id] . "\">";
+                    }
+                    echo "<span style=\"font-size:12px\">" . $_SESSION['historyName' . $id] . "</span>
+                      </div>";
+                    $id += 1;
+                  }
+                  ?>
                 </div>
 
               </div>

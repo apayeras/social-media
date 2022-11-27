@@ -321,6 +321,40 @@ h3 {
     cursor: pointer;
 }
 
+.historySelector {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.historySelector>img {
+    object-fit: cover;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background-color: #AEC6F6;
+}
+
+.historySelector>div {
+    object-fit: cover;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background-color: #AEC6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.historySelector>span {
+    font-size: 12px;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
 .ps-button {
     padding: 5px;
     padding-left: 20px;

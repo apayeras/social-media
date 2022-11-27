@@ -77,6 +77,30 @@ function get_suggeted_follows($con, $user)
     }
 }
 
+function get_all_users($con, $user)
+{
+    $str_query = "select id, nomUsuari, nomPerfil, fotoPerfil from usuari
+            where usuari.id != " . $user;
+
+    $query = mysqli_query($con, $str_query);
+
+    $id = 1;
+    while ($row = mysqli_fetch_array($query)) {
+        $_SESSION['usuari' . $id] = $row['id'];
+        $_SESSION['usuariNom' . $id] = $row['nomUsuari'];
+        $_SESSION['usuariPerfil' . $id] = $row['nomPerfil'];
+
+        if (isset($row['fotoPerfil'])) {
+            $_SESSION['usuariFoto' . $id] = $row['fotoPerfil'];
+        } else {
+            $_SESSION['usuariFoto' . $id] = "imgs/blank-profile.png";
+        }
+
+        $id += 1;
+    }
+    unset($_SESSION['usuari' . $id]);
+}
+
 function get_follow_information($con, $user, $main_user)
 {
     $str_query = "select seguidors.idSeguidor from seguidors where idSeguidor = " . $main_user . " and idSeguit = " . $user;
