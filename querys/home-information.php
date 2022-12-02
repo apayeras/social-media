@@ -18,6 +18,7 @@ if (!isset($_SESSION['user_id'])) {
         unset($_SESSION['changeSuggestedFollows']);
     }
 
+    get_home_publications($con, $_SESSION['user_id']);
     get_num_messages($con, $_SESSION['user_id']);
 
     closeDB();

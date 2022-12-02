@@ -71,6 +71,11 @@ include('querys/home-information.php');
       }
     }
 
+    function sharePublication(id) {
+      var text = document.getElementById('publicationText').value;
+      location.replace(`share-publication.php?text=${text}&historyId=${id}`);
+    }
+
     document.addEventListener('mouseup', function(e) {
       var container = document.getElementById('divUsers');
       if (!container.contains(e.target)) {
@@ -217,84 +222,50 @@ include('querys/home-information.php');
               <div class="option" style="color: var(--discard);"><svg class="lnr lnr-trash">
                   <use xlink:href="#lnr-trash"></use>
                 </svg><span>Descartar missatge</span></div>
-              <button class="button ps-button">Share</button>
+              <button class="button ps-button" <?php
+                                                if (isset($_SESSION['selectedHistoryId'])) {
+                                                  echo "onClick=\"sharePublication(" . $_SESSION['selectedHistoryId'] . ")\"";
+                                                } else {
+                                                  echo "onClick=\"sharePublication(null)\"";
+                                                }
+                                                ?>>Compartir</button>
+
               <div style="display: none;"><input type="file" name="myImage"></div>
             </div>
           </div>
         </div>
         <div class="Posts">
-          <div class="Post">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Kung_Hei_Fat_Choi%21_%286834861529%29.jpg" alt="">
-            <div class="detail">
-              <div><span><b>Tzuyu</b></span><span> Happy New Year all friends! #2023</span></div>
-            </div>
-            <div class="postReact">
-              <div class="reaction"><svg class="lnr lnr-heart">
-                  <use xlink:href="#lnr-heart"></use>
-                </svg><span>&nbsp; Like</span></div>
-              <div class="reaction"><svg class="lnr lnr-bubble">
-                  <use xlink:href="#lnr-bubble"></use>
-                </svg><span>&nbsp; Comment</span></div>
-              <div class="reaction"><svg class="lnr lnr-sync">
-                  <use xlink:href="#lnr-sync"></use>
-                </svg><span>&nbsp; Retweet</span></div>
-            </div>
-            <span style="color: var(--gray); font-size: 12px;">2301 likes</span>
-          </div>
-          <div class="Post">
-            <img alt="">
-            <div class="detail">
-              <div><span><b>Tzuyu</b></span><span> Happy New Year all friends! #2023</span></div>
-            </div>
-            <div class="postReact">
-              <div class="reaction"><svg class="lnr lnr-heart">
-                  <use xlink:href="#lnr-heart"></use>
-                </svg><span>&nbsp; Like</span></div>
-              <div class="reaction"><svg class="lnr lnr-bubble">
-                  <use xlink:href="#lnr-bubble"></use>
-                </svg><span>&nbsp; Comment</span></div>
-              <div class="reaction"><svg class="lnr lnr-sync">
-                  <use xlink:href="#lnr-sync"></use>
-                </svg><span>&nbsp; Retweet</span></div>
-            </div>
-            <span style="color: var(--gray); font-size: 12px;">2301 likes</span>
-          </div>
-          <div class="Post">
-            <img alt="">
-            <div class="detail">
-              <div><span><b>Tzuyu</b></span><span> Happy New Year all friends! #2023</span></div>
-            </div>
-            <div class="postReact">
-              <div class="reaction"><svg class="lnr lnr-heart">
-                  <use xlink:href="#lnr-heart"></use>
-                </svg><span>&nbsp; Like</span></div>
-              <div class="reaction"><svg class="lnr lnr-bubble">
-                  <use xlink:href="#lnr-bubble"></use>
-                </svg><span>&nbsp; Comment</span></div>
-              <div class="reaction"><svg class="lnr lnr-sync">
-                  <use xlink:href="#lnr-sync"></use>
-                </svg><span>&nbsp; Retweet</span></div>
-            </div>
-            <span style="color: var(--gray); font-size: 12px;">2301 likes</span>
-          </div>
-          <div class="Post">
-            <img alt="">
-            <div class="detail">
-              <div><span><b>Tzuyu</b></span><span> Happy New Year all friends! #2023</span></div>
-            </div>
-            <div class="postReact">
-              <div class="reaction"><svg class="lnr lnr-heart">
-                  <use xlink:href="#lnr-heart"></use>
-                </svg><span>&nbsp; Like</span></div>
-              <div class="reaction"><svg class="lnr lnr-bubble">
-                  <use xlink:href="#lnr-bubble"></use>
-                </svg><span>&nbsp; Comment</span></div>
-              <div class="reaction"><svg class="lnr lnr-sync">
-                  <use xlink:href="#lnr-sync"></use>
-                </svg><span>&nbsp; Retweet</span></div>
-            </div>
-            <span style="color: var(--gray); font-size: 12px;">2301 likes</span>
-          </div>
+          <?php
+          $id = 1;
+          while (isset($_SESSION['publication' . $id])) {
+            echo "<div class=\"Post\">
+                <img src=\"" . $_SESSION['publicationPhoto' . $id] . "\">
+                <div class=\"detail\">
+                    <div><span><b>" . $_SESSION['publicationUser' . $id] . "</b></span><span> " . $_SESSION['publicationText' . $id] . "</span></div>
+                </div>
+                <div class=\"postReact\">
+                    <div class=\"reaction\"><svg class=\"lnr lnr-heart\">
+                            <use xlink:href=\"#lnr-heart\"></use>
+                        </svg><span>&nbsp; M'agrada</span></div>
+                    <div class=\"reaction\"><svg class=\"lnr lnr-bubble\">
+                            <use xlink:href=\"#lnr-bubble\"></use>
+                        </svg><span>&nbsp; Comenta</span></div>
+                    <div class=\"reaction\"><svg class=\"lnr lnr-sync\">
+                            <use xlink:href=\"#lnr-sync\"></use>
+                        </svg><span>&nbsp; Reenvia</span></div>
+                </div>
+                <span>
+                <span style=\"color: var(--gray); font-size: 12px;\"> 0 M'agrada</span>
+                <span style=\"color: var(--gray); font-size: 12px; float:right;\">" . $_SESSION['publicationDate' . $id] . "</span>
+                </span>
+            </div>";
+            $id += 1;
+          }
+          if ($id == 1) {
+            echo "<span style='margin: 30px auto;border-radius: 5px;width: 95%;text-align: center;'>No hi ha cap publicació disponible. <br> Segueix a més usuaris per veure les seves publicacions.</span>";
+          }
+
+          ?>
         </div>
       </div>
       <div class="RightSide">
@@ -318,15 +289,15 @@ include('querys/home-information.php');
           </svg>
         </div>
         <div class="TrendCard">
-          <h3>Trends for you</h3>
-          <div class="trend"><span>#Minions</span><span>97k shares</span></div>
-          <div class="trend"><span>#Avangers</span><span>80.5k shares</span></div>
-          <div class="trend"><span>#Zainkeepscode</span><span>75.5k shares</span></div>
-          <div class="trend"><span>#Reactjs</span><span>72k shares</span></div>
-          <div class="trend"><span>#Elon Musk</span><span>71.9k shares</span></div>
-          <div class="trend"><span>#Need for Speed</span><span>20k shares</span></div>
+          <h3>Tendències actuals</h3>
+          <div class="trend"><span>#somUIB</span><span>7k shares</span></div>
+          <div class="trend"><span>#Mundial</span><span>10.5k shares</span></div>
+          <div class="trend"><span>#Clean code</span><span>1.5k shares</span></div>
+          <div class="trend"><span>#Base de dades II</span><span>2k shares</span></div>
+          <div class="trend"><span>#Cryptos</span><span>1.9k shares</span></div>
+          <div class="trend"><span>#F1</span><span>839 shares</span></div>
         </div>
-        <button class="button r-button">Share</button>
+        <button class="button r-button">Compartir</button>
       </div>
     </div>
   </div>

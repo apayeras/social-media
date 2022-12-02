@@ -360,7 +360,7 @@ h3 {
     padding-left: 20px;
     padding-right: 20px;
     font-size: 12px;
-    width: 85px;
+    width: 95px;
 }
 
 .lnr {
@@ -477,6 +477,20 @@ div {
     height: 3rem;
     width: 80%;
     align-self: center;
+}
+
+.delete-button {
+    height: 3rem;
+    width: 80%;
+    align-self: center;
+    background: linear-gradient(to bottom, #f80f0fdc 20%, #f34134e5 80%);
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    color: #f80f0fdc;
+    background: transparent;
+    border: 2px solid #f80f0fdc;
 }
 
 .InfoCard {

@@ -265,7 +265,7 @@ include('querys/profile-information.php');
                                     echo "<div>
                                         <svg style=\"width: 20px;\"xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z'/></svg>
                                     </div>
-                                    <span>Add story</span>
+                                    <span>Afegeix història</span>
                                     </div>
                                     <div id='storyModal' class='modal'>
                                     <div class='modal-content'>
@@ -325,15 +325,18 @@ include('querys/profile-information.php');
                                     <div class=\"postReact\">
                                         <div class=\"reaction\"><svg class=\"lnr lnr-heart\">
                                                 <use xlink:href=\"#lnr-heart\"></use>
-                                            </svg><span>&nbsp; Like</span></div>
+                                            </svg><span>&nbsp; M'agrada</span></div>
                                         <div class=\"reaction\"><svg class=\"lnr lnr-bubble\">
                                                 <use xlink:href=\"#lnr-bubble\"></use>
-                                            </svg><span>&nbsp; Comment</span></div>
+                                            </svg><span>&nbsp; Comenta</span></div>
                                         <div class=\"reaction\"><svg class=\"lnr lnr-sync\">
                                                 <use xlink:href=\"#lnr-sync\"></use>
-                                            </svg><span>&nbsp; Retweet</span></div>
+                                            </svg><span>&nbsp; Reenvia</span></div>
                                     </div>
-                                    <span style=\"color: var(--gray); font-size: 12px;\">2301 likes</span>
+                                    <span>
+                                    <span style=\"color: var(--gray); font-size: 12px;\"> 0 M'agrada</span>
+                                    <span style=\"color: var(--gray); font-size: 12px; float:right;\">" . $_SESSION['publicationDate' . $id] . "</span>
+                                    </span>
                                 </div>";
                             $id += 1;
                         }
@@ -366,15 +369,15 @@ include('querys/profile-information.php');
                     </svg>
                 </div>
                 <div class="TrendCard">
-                    <h3>Trends for you</h3>
-                    <div class="trend"><span>#Minions</span><span>97k shares</span></div>
-                    <div class="trend"><span>#Avangers</span><span>80.5k shares</span></div>
-                    <div class="trend"><span>#Zainkeepscode</span><span>75.5k shares</span></div>
-                    <div class="trend"><span>#Reactjs</span><span>72k shares</span></div>
-                    <div class="trend"><span>#Elon Musk</span><span>71.9k shares</span></div>
-                    <div class="trend"><span>#Need for Speed</span><span>20k shares</span></div>
+                    <h3>Tendències actuals</h3>
+                    <div class="trend"><span>#somUIB</span><span>7k shares</span></div>
+                    <div class="trend"><span>#Mundial</span><span>10.5k shares</span></div>
+                    <div class="trend"><span>#Clean code</span><span>1.5k shares</span></div>
+                    <div class="trend"><span>#Base de dades II</span><span>2k shares</span></div>
+                    <div class="trend"><span>#Cryptos</span><span>1.9k shares</span></div>
+                    <div class="trend"><span>#F1</span><span>839 shares</span></div>
                 </div>
-                <button class="button r-button">Share</button>
+                <button class="button delete-button">Elimina la conta</button>
             </div>
         </div>
     </div>

@@ -157,9 +157,10 @@ function get_history_publications($con, $user, $idHistoria)
         unset($_SESSION['publication1']);
         return;
     }
-    $str_query = "SELECT publicacio.id, `text`, `foto`, `nomUsuari` FROM `publicacio` 
+    $str_query = "SELECT publicacio.id, `text`, `foto`, `nomPerfil`, `data` FROM `publicacio` 
     JOIN usuari
-    ON usuari.id = publicacio.idUsuari WHERE idUsuari = " . $user . " and idHistoria = " . $idHistoria;
+    ON usuari.id = publicacio.idUsuari WHERE idUsuari = " . $user . " and idHistoria = " . $idHistoria .
+        " order by data desc;";
     $query = mysqli_query($con, $str_query);
 
     $id = 1;
@@ -167,7 +168,8 @@ function get_history_publications($con, $user, $idHistoria)
         $_SESSION['publication' . $id] = $row['id'];
         $_SESSION['publicationText' . $id] = $row['text'];
         $_SESSION['publicationPhoto' . $id] = $row['foto'];
-        $_SESSION['publicationUser' . $id] = $row['nomUsuari'];
+        $_SESSION['publicationUser' . $id] = $row['nomPerfil'];
+        $_SESSION['publicationDate' . $id] = $row['data'];
 
         $id += 1;
     }
@@ -176,9 +178,10 @@ function get_history_publications($con, $user, $idHistoria)
 
 function get_user_publications($con, $user)
 {
-    $str_query = "SELECT publicacio.id, `text`, `foto`, `nomUsuari` FROM `publicacio` 
+    $str_query = "SELECT publicacio.id, `text`, `foto`, `nomPerfil`, `data` FROM `publicacio` 
     JOIN usuari
-    ON usuari.id = publicacio.idUsuari WHERE idUsuari = " . $user . " and idHistoria is null or ''";
+    ON usuari.id = publicacio.idUsuari WHERE idUsuari = " . $user . " and idHistoria is null or ''
+    order by data desc;";
     $query = mysqli_query($con, $str_query);
 
     $id = 1;
@@ -186,7 +189,30 @@ function get_user_publications($con, $user)
         $_SESSION['publication' . $id] = $row['id'];
         $_SESSION['publicationText' . $id] = $row['text'];
         $_SESSION['publicationPhoto' . $id] = $row['foto'];
-        $_SESSION['publicationUser' . $id] = $row['nomUsuari'];
+        $_SESSION['publicationUser' . $id] = $row['nomPerfil'];
+        $_SESSION['publicationDate' . $id] = $row['data'];
+
+        $id += 1;
+    }
+    unset($_SESSION['publication' . $id]);
+}
+
+function get_home_publications($con, $user)
+{
+    $str_query = "SELECT publicacio.id, `text`, `foto`, `nomPerfil`, `data` FROM `publicacio` 
+    JOIN usuari ON usuari.id = publicacio.idUsuari 
+    WHERE (idUsuari = " . $user . " or idUsuari in (select seguidors.idSeguit from seguidors where seguidors.idSeguidor = " . $user . ")) 
+    and idHistoria is null or ''
+    order by data desc;";
+    $query = mysqli_query($con, $str_query);
+
+    $id = 1;
+    while ($row = mysqli_fetch_array($query)) {
+        $_SESSION['publication' . $id] = $row['id'];
+        $_SESSION['publicationText' . $id] = $row['text'];
+        $_SESSION['publicationPhoto' . $id] = $row['foto'];
+        $_SESSION['publicationUser' . $id] = $row['nomPerfil'];
+        $_SESSION['publicationDate' . $id] = $row['data'];
 
         $id += 1;
     }
