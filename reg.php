@@ -26,6 +26,7 @@ if (isset($_POST['register'])) {
             echo '<p class="error">Something went wrong!</p>';
         }
         if ($query) {
+            $_SESSION['user_id'] = mysqli_insert_id($con);
             header('Location: home.php');
             exit;
         }

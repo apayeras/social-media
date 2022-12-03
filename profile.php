@@ -382,15 +382,18 @@ include('querys/profile-information.php');
         </div>
     </div>
     <script>
+        const element = document.querySelector('.ProfileCenter');
         var btn = document.getElementById("profileModal");
         if (btn != null) {
             var modal = document.getElementById("myModal");
             var span = document.getElementsByClassName("close")[0];
             btn.onclick = function() {
                 modal.style.display = "block";
+                element.style.overflow = "hidden";
             }
             span.onclick = function() {
                 modal.style.display = "none";
+                element.style.overflow = "scroll";
             }
         }
 
@@ -398,11 +401,14 @@ include('querys/profile-information.php');
         if (btn2 != null) {
             var modal2 = document.getElementById("storyModal");
             var span2 = document.getElementsByClassName("close")[1];
+
             btn2.onclick = function() {
                 modal2.style.display = "block";
+                element.style.overflow = "hidden";
             }
             span2.onclick = function() {
                 modal2.style.display = "none";
+                element.style.overflow = "scroll";
             }
         }
 
@@ -411,11 +417,13 @@ include('querys/profile-information.php');
             if (btn != null) {
                 if (event.target == modal) {
                     modal.style.display = "none";
+                    element.style.overflow = "scroll";
                 }
             }
             if (btn2 != null) {
                 if (event.target == modal2) {
                     modal2.style.display = "none";
+                    element.style.overflow = "scroll";
                 }
             }
         }
