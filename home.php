@@ -9,11 +9,10 @@ unset($_SESSION['perfilSeleccionat']);
 <head>
   <meta charset="UTF-8">
   <title>Extreamwave</title>
-  <!-- <meta http-equiv="Refresh" content="30"> -->
+  <meta http-equiv="Refresh" content="100">
   <link rel="stylesheet" href="styles/home.css">
   <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script scr="scripts/home.js"></script>
   <script src="scripts/common-scripts.js"></script>
 </head>
 
@@ -38,7 +37,7 @@ unset($_SESSION['perfilSeleccionat']);
             $id = 1;
             while (isset($_SESSION['usuari' . $id])) {
               echo "<div class=\"filteredUser\" style=\"display: none;\" onClick=\"viewProfile(" . $_SESSION['usuari' . $id] . ")\">
-                <img style=\"width: 2rem; height: 2rem; border-radius: 50%;\" src=\"" . $_SESSION['usuariFoto' . $id] . "\">
+                <img style=\"width: 2rem; height: 2rem; border-radius: 50%; object-fit:cover;\" src=\"" . $_SESSION['usuariFoto' . $id] . "\">
                 <div class='name'><span style=\"font-size:13px\">" . $_SESSION['usuariPerfil' . $id] . "</span><span style=\"font-size:13px\">" . $_SESSION['usuariNom' . $id] . "</span>
                 </div>
               </div>";
@@ -223,6 +222,7 @@ unset($_SESSION['perfilSeleccionat']);
       </div>
     </div>
   </div>
+  <script src="scripts/home.js"></script>
 </body>
 
 </html>

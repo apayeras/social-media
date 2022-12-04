@@ -13,14 +13,29 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $result = curl_exec($ch);
 curl_close($ch);
 
-if ($result !== FALSE) {
-    $photo = $_GET["photo"];
+echo "";
+if ($result !== FALSE and $_GET["photo"] != "") {
+    $photo = "`fotoPerfil`=\"" . $_GET["photo"] . "\"";
 } else {
-    $photo = null;
+    $photo = "`fotoPerfil`= null";
 }
 
-$str_query = "UPDATE usuari SET `nomPerfil`='" . $_GET['name'] . "',`descripcio`='" . $_GET['description'] . "',`fotoPerfil`='" . $photo . "' 
+if ($_GET['description'] == "") {
+    $description = "`descripcio`= null";
+} else {
+    $description = "`descripcio`=\"" . $_GET['description'] . "\"";
+}
+
+if ($_GET['name'] == "") {
+    $name = "`nomPerfil`= null";
+} else {
+    $name = "`nomPerfil`=\"" . $_GET['name'] . "\"";
+}
+
+$str_query = "UPDATE usuari SET " . $name . ", " . $description . ", " . $photo . " 
     WHERE usuari.id = " . $_SESSION['user_id'];
+
+echo $str_query;
 $query = mysqli_query($con, $str_query);
 closeDB();
 

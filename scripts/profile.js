@@ -3,7 +3,7 @@ function manageFollow(follow, idProfile, idButton) {
 }
 
 function manageFollow(follow, idProfile) {
-    location.replace(`manage-follow.php?follow=${follow}&idProfile=${idProfile}&location=profile.php`);
+    location.replace(`querys/user/manage-follow.php?follow=${follow}&idProfile=${idProfile}&location=profile.php`);
 }
 
 function updateUser() {
@@ -23,7 +23,7 @@ function addHistory() {
     let historyPhoto = document.getElementById("historyPhoto").value;
     let select = document.getElementById("privacity");
     let privacity = select.options[select.selectedIndex].value == "Private" ? 0 : 1;
-    location.replace(`manage-history.php?historyName=${historyName}&historyPhoto=${historyPhoto}&privacity=${privacity}`);
+    location.replace(`querys/history/insert-history.php?historyName=${historyName}&historyPhoto=${historyPhoto}&privacity=${privacity}`);
 }
 
 function selectHistory(idProfile, idHistory) {
@@ -32,6 +32,7 @@ function selectHistory(idProfile, idHistory) {
 
 const element = document.querySelector('.ProfileCenter');
 var btn = document.getElementById("profileModal");
+console.log(btn);
 if (btn != null) {
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close")[0];
@@ -63,7 +64,7 @@ if (btn2 != null) {
 var btn3 = document.getElementById("deleteButton");
 if (btn3 != null) {
     var modal3 = document.getElementById("deleteModal");
-    var span3 = document.getElementsByClassName("close")[2];
+    var span3 = document.getElementById("exit");
 
     btn3.onclick = function () {
         modal3.style.display = "block";
@@ -89,4 +90,20 @@ window.onclick = function (event) {
             element.style.overflow = "scroll";
         }
     }
+    if (btn3 != null) {
+        if (event.target == modal3) {
+            modal3.style.display = "none";
+            element.style.overflow = "scroll";
+        }
+    }
 }
+
+document.addEventListener('mouseup', function (e) {
+    var container = document.getElementById('searchPanel');
+    if (!container.contains(e.target)) {
+        div = document.getElementsByClassName("filteredUser");
+        for (i = 0; i < div.length; i++) {
+            div[i].style.display = "none";
+        }
+    }
+});

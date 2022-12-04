@@ -15,7 +15,7 @@ function get_profile_card($con, $user)
         if (isset($row['descripcio'])) {
             $_SESSION['descripcio'] = $row['descripcio'];
         } else {
-            $_SESSION['descripcio'] = "Add new description";
+            $_SESSION['descripcio'] = "";
         }
 
         if (isset($row['fotoPerfil'])) {

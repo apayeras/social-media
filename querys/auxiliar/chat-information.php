@@ -1,7 +1,7 @@
 <?php
 session_start();
-include('../utilities/check-session.php');
-include('../utilities/db.php');
+include('querys/utilities/check-session.php');
+include('querys/utilities/db.php');
 getDB();
 
 $str_query = "SELECT id, nomPerfil, fotoPerfil, dataMax, counter FROM usuari

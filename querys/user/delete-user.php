@@ -18,7 +18,7 @@ while ($row = mysqli_fetch_array($query)) {
     $query2 = mysqli_query($con, $str_query2);
     closeDB();
     session_destroy();
-    header('Location: ../../login.html');
+    header('Location: ../../login.php');
     exit();
 }
 closeDB();

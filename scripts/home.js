@@ -4,7 +4,7 @@ function manageFollow(follow, idProfile, idButton) {
 
 function loadHistory(id, historyName) {
     var text = document.getElementById('publicationText').value;
-    location.replace(`home-history.php?text=${text}&historyId=${id}&historyName=${historyName}`);
+    location.replace(`querys/auxiliar/home-history.php?text=${text}&historyId=${id}&historyName=${historyName}`);
 }
 
 function openHistorySelector() {
@@ -16,7 +16,7 @@ function openHistorySelector() {
 
 function sharePublication(id) {
     var text = document.getElementById('publicationText').value;
-    location.replace(`share-publication.php?text=${text}&historyId=${id}`);
+    location.replace(`querys/publication/insert-publication.php?text=${text}&historyId=${id}`);
 }
 
 document.addEventListener('mouseup', function (e) {

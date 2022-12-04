@@ -1,7 +1,7 @@
 <?php
-include('../utilities/check-session.php');
-include('../utilities/db.php');
-include('../gets.php');
+include('querys/utilities/check-session.php');
+include('querys/utilities/db.php');
+include('querys/gets.php');
 
 getDB();
 

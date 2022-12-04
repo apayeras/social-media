@@ -18,12 +18,11 @@ include('querys/auxiliar/profile-information.php');
 <head>
     <meta charset="UTF-8">
     <title>Perfil</title>
-    <meta http-equiv="Refresh" content="100">
+    <meta http-equiv="Refresh" content="120">
     <link rel="stylesheet" href="styles/profile.css">
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="scripts/common-scripts.js"></script>
-    <script src="scripts/profile.js"></script>
 </head>
 
 <body>
@@ -47,7 +46,7 @@ include('querys/auxiliar/profile-information.php');
                     $id = 1;
                     while (isset($_SESSION['usuari' . $id])) {
                         echo "<div class=\"filteredUser\" style=\"display: none;\" onClick=\"viewProfile(" . $_SESSION['usuari' . $id] . ")\">
-                                <img style=\"width: 2rem; height: 2rem; border-radius: 50%;\" src=\"" . $_SESSION['usuariFoto' . $id] . "\">
+                                <img style=\"width: 2rem; height: 2rem; border-radius: 50%; object-fit:cover;\" src=\"" . $_SESSION['usuariFoto' . $id] . "\">
                                 <div class='name'><span style=\"font-size:13px\">" . $_SESSION['usuariPerfil' . $id] . "</span><span style=\"font-size:13px\">" . $_SESSION['usuariNom' . $id] . "</span>
                                 </div>
                             </div>";
@@ -105,7 +104,7 @@ include('querys/auxiliar/profile-information.php');
                                     <span>Descripció: </span><input id='updateDescription' class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value=\"" . $_SESSION['descripcio'] . "\" />
                                 </div>
                                 <div>
-                                    <span>Foto: </span><input id='updatePhoto' class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value=\"" . ($_SESSION['fotoPerfil'] != 'https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' ? $_SESSION['fotoPerfil'] : '') . "\" />
+                                    <span>Foto: </span><input id='updatePhoto' class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value=\"" . ($_SESSION['fotoPerfil'] != 'imgs/blank-profile.png' ? $_SESSION['fotoPerfil'] : '') . "\" />
                                 </div>
                                 <button class='button infoButton' onclick='updateUser()' >Actualitza</button>
                             </div>
@@ -292,7 +291,7 @@ include('querys/auxiliar/profile-information.php');
             <div style="padding-top: 200px;" id="deleteModal" class="modal" style="display: none;">
                 <div class="modal-content" style="width:50%;">
                     <div style="background: linear-gradient(to bottom, #f80f0fdc 20%, #f34134e5 80%);" class="modal-header">
-                        <span class="close">×</span>
+                        <span id="exit" class="close">×</span>
                         <h2 style="margin-bottom: 0px;">&nbsp; &nbsp; Realment vols eliminar el teu compte?</h2>
                         <h3 style="margin-top: 2px;">Una cop eliminat no es podrà tonar a recuperar </h3>
                     </div>
@@ -306,7 +305,7 @@ include('querys/auxiliar/profile-information.php');
         </div>
     </div>
     </div>
-
+    <script src="scripts/profile.js"></script>
 </body>
 
 </html>
