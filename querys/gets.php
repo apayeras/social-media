@@ -21,7 +21,7 @@ function get_profile_card($con, $user)
         if (isset($row['fotoPerfil'])) {
             $_SESSION['fotoPerfil'] = $row['fotoPerfil'];
         } else {
-            $_SESSION['fotoPerfil'] = "https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png";
+            $_SESSION['fotoPerfil'] = "imgs/blank-profile.png";
         }
 
         $_SESSION['numSeguidors'] = $row['numSeguidors'];
@@ -70,7 +70,7 @@ function get_suggeted_follows($con, $user)
         if (isset($row['fotoPerfil'])) {
             $_SESSION['fotoPerfil' . $id] = $row['fotoPerfil'];
         } else {
-            $_SESSION['fotoPerfil' . $id] = "https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png";
+            $_SESSION['fotoPerfil' . $id] = "imgs/blank-profile.png";
         }
 
         $id += 1;
@@ -218,3 +218,4 @@ function get_home_publications($con, $user)
     }
     unset($_SESSION['publication' . $id]);
 }
+?>

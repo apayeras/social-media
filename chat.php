@@ -1,10 +1,10 @@
 <?php
-include('../querys/chat-information.php');
+include('querys/auxiliar/chat-information.php');
 if (isset($_GET['idchat'])) {
     $_SESSION['perfilSeleccionat'] = $_GET['idchat'];
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -12,27 +12,7 @@ if (isset($_GET['idchat'])) {
     <meta http-equiv="Refresh" content="90">
     <title>Missatges</title>
     <link rel="stylesheet" href="styles/chat.css">
-    <script type="text/javascript">
-        function logout() {
-            location.replace("logout.php");
-        }
-
-        function viewProfile(idProfile) {
-            location.replace(`profile.php?idProfile=${idProfile}`);
-        }
-
-        function openMessages() {
-            location.replace("chat.php");
-        }
-
-        function openHome() {
-            location.replace("home.php");
-        }
-
-        function selectChat(id, nom, foto, counter) {
-            location.replace(`read-messages.php?idchat=${id}&nom=${nom}&foto=${foto}&counter=${counter}`);
-        }
-    </script>
+    <script src="scripts/common-scripts.js"></script>
 </head>
 
 <body>
@@ -42,7 +22,7 @@ if (isset($_GET['idchat'])) {
         <div class="Chat">
             <div class="Left-side-chat">
                 <div class="LogoSearch">
-                    <img src="https://www.freeiconspng.com/uploads/abstract-circle-wave-logo-png-image-11.png" alt="Wave-img">
+                    <img src="imgs/logo.png" alt="Wave-img">
                     <div class="Search">
                         <input type="text" placeholder="Cercar">
                         <div class="s-icon">

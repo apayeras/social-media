@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../db.php');
+include('../utilities/db.php');
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
@@ -12,6 +12,7 @@ if (isset($_POST['register'])) {
     $query = mysqli_query($con, $str_query);
 
     if ($query->num_rows > 0) {
+        closeDB();
         $_SESSION['register'] = 0; // User already exists
         header("Location: ../../register.php");
     }
@@ -21,13 +22,14 @@ if (isset($_POST['register'])) {
         $query = mysqli_query($con, $str_query);
 
         if (!$query) {
+            closeDB();
             $_SESSION['register'] = 2; // Something went wrong
             header("Location: ../../register.php");
         }
 
         $_SESSION['user_id'] = mysqli_insert_id($con);
+        closeDB();
         header('Location: ../../home.php');
-        exit;
     }
     closeDB();
 }

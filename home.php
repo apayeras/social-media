@@ -1,8 +1,9 @@
 <?php
 session_start();
-include('querys/home-information.php');
+include('querys/auxiliar/home-information.php');
+unset($_SESSION['perfilSeleccionat']);
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -12,88 +13,8 @@ include('querys/home-information.php');
   <link rel="stylesheet" href="styles/home.css">
   <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script type="text/javascript">
-    function logout() {
-      location.replace("logout.php");
-    }
-
-    function openHome() {
-      location.replace("home.php");
-    }
-
-    function viewProfile(idProfile) {
-      location.replace(`profile.php?idProfile=${idProfile}`);
-    }
-
-    function manageFollow(follow, idProfile, idButton) {
-      location.replace(`manage-follow.php?follow=${follow}&idProfile=${idProfile}&idButton=${idButton}&location=home.php`);
-    }
-
-    function openMessages() {
-      <?php unset($_SESSION['perfilSeleccionat']); ?>
-      location.replace("chat.php");
-    }
-
-    function filterNames() {
-      var input, filter, filtered, div, spans, ul, li, a, i, j;
-      input = document.getElementById("searchInput");
-      filter = input.value.toUpperCase();
-      div = document.getElementsByClassName("filteredUser");
-      //filtered = div.getElementsByTagName("a");
-      if (filter.length == 0) {
-        for (i = 0; i < div.length; i++) {
-          div[i].style.display = "none";
-        }
-      } else {
-        j = 0;
-        for (i = 0; i < div.length && j < 8; i++) {
-          spans = div[i].getElementsByTagName("span");
-          txtValue1 = spans[0].textContent || spans[0].innerText;
-          txtValue2 = spans[1].textContent || spans[1].innerText;
-          if (txtValue1.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
-            div[i].style.display = "";
-            j++;
-          } else {
-            div[i].style.display = "none";
-          }
-        }
-      }
-    }
-
-    function loadHistory(id, historyName) {
-      var text = document.getElementById('publicationText').value;
-      location.replace(`home-history.php?text=${text}&historyId=${id}&historyName=${historyName}`);
-    }
-
-    function openHistorySelector() {
-      div = document.getElementsByClassName("historySelector");
-      for (i = 0; i < div.length; i++) {
-        div[i].style.display = "";
-      }
-    }
-
-    function sharePublication(id) {
-      var text = document.getElementById('publicationText').value;
-      location.replace(`share-publication.php?text=${text}&historyId=${id}`);
-    }
-
-    document.addEventListener('mouseup', function(e) {
-      var container = document.getElementById('divUsers');
-      if (!container.contains(e.target)) {
-        div = document.getElementsByClassName("filteredUser");
-        for (i = 0; i < div.length; i++) {
-          div[i].style.display = "none";
-        }
-      }
-      var container2 = document.getElementById('divHistory');
-      if (!container2.contains(e.target)) {
-        div2 = document.getElementsByClassName("historySelector");
-        for (i = 0; i < div2.length; i++) {
-          div2[i].style.display = "none";
-        }
-      }
-    });
-  </script>
+  <script scr="scripts/home.js"></script>
+  <script src="scripts/common-scripts.js"></script>
 </head>
 
 <body>
@@ -103,7 +24,7 @@ include('querys/home-information.php');
     <div class="Home">
       <div class="ProfileSide">
         <div class="LogoSearch">
-          <img src="https://www.freeiconspng.com/uploads/abstract-circle-wave-logo-png-image-11.png" alt="Wave-img">
+          <img src="imgs/logo.png" alt="Wave-img">
           <div class="Search" id="searchPanel">
             <div id="divUsers" style="display: flex">
               <input type="text" class="nameInput" id="searchInput" placeholder="Cercar" onkeyup="filterNames()" onfocusin="filterNames()">
@@ -130,7 +51,7 @@ include('querys/home-information.php');
 
         <div class="ProfileCard">
           <div class="ProfileImages">
-            <img src="https://images.pexels.com/photos/1287142/pexels-photo-1287142.jpeg?cs=srgb&dl=pexels-eberhard-grossgasteiger-1287142.jpg&fm=jpg" alt="">
+            <img src="imgs/profile-header.jpg" alt="">
             <img src="<?php echo $_SESSION['fotoPerfil']; ?>" alt="">
           </div>
           <div class="ProfileName">
