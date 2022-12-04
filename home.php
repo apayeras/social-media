@@ -7,6 +7,7 @@ include('querys/home-information.php');
 
 <head>
   <meta charset="UTF-8">
+  <title>Extreamwave</title>
   <!-- <meta http-equiv="Refresh" content="30"> -->
   <link rel="stylesheet" href="styles/home.css">
   <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>

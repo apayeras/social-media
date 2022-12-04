@@ -277,3 +277,13 @@
     align-self: flex-end;
     margin-right: 5%;
 }
+
+.deleteColour {
+    background: linear-gradient(to bottom, #f80f0fdc 20%, #f34134e5 80%);
+}
+
+.deleteColour:hover {
+    color: #f80f0fdc;
+    background: transparent;
+    border: 2px solid #f80f0fdc;
+}

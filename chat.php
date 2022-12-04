@@ -1,15 +1,16 @@
 <?php
-include('querys/chat-information.php');
+include('../querys/chat-information.php');
 if (isset($_GET['idchat'])) {
     $_SESSION['perfilSeleccionat'] = $_GET['idchat'];
 }
 ?>
+<!doctype html>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <!-- <meta http-equiv="Refresh" content="30"> -->
-    <title>Chat1</title>
+    <meta http-equiv="Refresh" content="90">
+    <title>Missatges</title>
     <link rel="stylesheet" href="styles/chat.css">
     <script type="text/javascript">
         function logout() {
@@ -52,7 +53,7 @@ if (isset($_GET['idchat'])) {
                     </div>
                 </div>
                 <div class="Chat-container">
-                    <h2>Chats</h2>
+                    <h2>Xats</h2>
                     <?php
                     $counter = 1;
                     while (true) {
@@ -136,7 +137,7 @@ if (isset($_GET['idchat'])) {
                     } else {
                         echo "<div class=\"select-chat\">
                                 <img class=\"img-chat\" src=\"imgs/chatting-icon.png\">
-                                <h2>Selecciona un chat para continuar</h2>
+                                <h2>Selecciona un xat per continuar</h2>
                             </div>";
                     }
                     ?>

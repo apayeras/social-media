@@ -8,10 +8,6 @@ if (isset($_GET['history'])) {
 } else {
     unset($_SESSION['selectedHistory']);
 }
-
-?>
-
-<?php
 include('querys/profile-information.php');
 ?>
 
@@ -20,6 +16,7 @@ include('querys/profile-information.php');
 
 <head>
     <meta charset="UTF-8">
+    <title>Perfil</title>
     <!-- <meta http-equiv="Refresh" content="30"> -->
     <link rel="stylesheet" href="styles/profile.css">
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
@@ -43,6 +40,19 @@ include('querys/profile-information.php');
 
         function manageFollow(follow, idProfile) {
             location.replace(`manage-follow.php?follow=${follow}&idProfile=${idProfile}&location=profile.php`);
+        }
+
+        function updateUser() {
+            let name = document.getElementById("updateName").value;
+            let description = document.getElementById("updateDescription").value;
+            let photo = document.getElementById("updatePhoto").value;
+            location.replace(`update-user.php?name=${name}&description=${description}&photo=${photo}`);
+        }
+
+        function deleteUser() {
+            let password = document.getElementById("deletePassword").value;
+            console.log(password);
+            location.replace(`delete-user.php?password=${password}`);
         }
 
         function addHistory() {
@@ -113,36 +123,17 @@ include('querys/profile-information.php');
                                 </svg>
                             </div>
                         </div>
-                        <div class="filteredUser" style="display: none;" onClick="">
-                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                            <div class='name'><span style="font-size:13px">Name1</span><span style="font-size:13px">Name2</span>
-                            </div>
-                        </div>
-                        <div class="filteredUser" style="display: none;" onClick="">
-                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                            <div class='name'><span style="font-size:13px">Base</span><span style="font-size:13px">Blog</span>
-                            </div>
-                        </div>
-                        <div class="filteredUser" style="display: none;" onClick="">
-                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                            <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
-                            </div>
-                        </div>
-                        <div class="filteredUser" style="display: none;" onClick="">
-                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                            <div class='name'><span style="font-size:13px">Contact</span><span style="font-size:13px">Custom</span>
-                            </div>
-                        </div>
-                        <div class="filteredUser" style="display: none;" onClick="">
-                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                            <div class='name'><span style="font-size:13px">Support</span><span style="font-size:13px">Support</span>
-                            </div>
-                        </div>
-                        <div class="filteredUser" style="display: none;" onClick="">
-                            <img style="width: 2rem; height: 2rem; border-radius: 50%;" src="https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png">
-                            <div class='name'><span style="font-size:13px">Tools</span><span style="font-size:13px">Support</span>
-                            </div>
-                        </div>
+                        <?php
+                        $id = 1;
+                        while (isset($_SESSION['usuari' . $id])) {
+                            echo "<div class=\"filteredUser\" style=\"display: none;\" onClick=\"viewProfile(" . $_SESSION['usuari' . $id] . ")\">
+                                <img style=\"width: 2rem; height: 2rem; border-radius: 50%;\" src=\"" . $_SESSION['usuariFoto' . $id] . "\">
+                                <div class='name'><span style=\"font-size:13px\">" . $_SESSION['usuariPerfil' . $id] . "</span><span style=\"font-size:13px\">" . $_SESSION['usuariNom' . $id] . "</span>
+                                </div>
+                            </div>";
+                            $id += 1;
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="FollowersCard">
@@ -189,14 +180,14 @@ include('querys/profile-information.php');
                             </div>
                             <div class='form'>
                                 <div>
-                                    <span>Nom: </span><input class='infoInput' type='text' value=\"" . $_SESSION['nomPerfil'] . "\" />
+                                    <span>Nom: </span><input id='updateName' class='infoInput' type='text' value=\"" . $_SESSION['nomPerfil'] . "\" />
                                 
-                                    <span>Descripció: </span><input class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value=\"" . $_SESSION['descripcio'] . "\" />
+                                    <span>Descripció: </span><input id='updateDescription' class='infoInput' type='text' placeholder='p.e. Enginyer Informàtic - UIB' value=\"" . $_SESSION['descripcio'] . "\" />
                                 </div>
                                 <div>
-                                    <span>Foto: </span><input class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value=\"" . ($_SESSION['fotoPerfil'] != 'https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' ? $_SESSION['fotoPerfil'] : '') . "\" />
+                                    <span>Foto: </span><input id='updatePhoto' class='infoInput' type='text' placeholder='p.e. https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' value=\"" . ($_SESSION['fotoPerfil'] != 'https://iio.azcast.arizona.edu/sites/default/files/profile-blank-whitebg.png' ? $_SESSION['fotoPerfil'] : '') . "\" />
                                 </div>
-                                <button class='button infoButton'>Actualitza</button>
+                                <button class='button infoButton' onclick='updateUser()' >Actualitza</button>
                             </div>
                         </div>
                         </div>";
@@ -231,7 +222,7 @@ include('querys/profile-information.php');
                     </div>
                 </div>
                 <div class="StoriesSide">
-                    <h3>Historias</h3>
+                    <h3>Històries</h3>
                     <div class="Stories">
                         <div>
                             <?php
@@ -312,7 +303,7 @@ include('querys/profile-information.php');
                     </div>
                 </div>
                 <div class="PublicationsSide">
-                    <h3>Publicaciones</h3>
+                    <h3>Publicacions</h3>
                     <div class="Posts">
                         <?php
                         $id = 1;
@@ -377,7 +368,21 @@ include('querys/profile-information.php');
                     <div class="trend"><span>#Cryptos</span><span>1.9k shares</span></div>
                     <div class="trend"><span>#F1</span><span>839 shares</span></div>
                 </div>
-                <button class="button delete-button">Elimina la conta</button>
+                <button id="deleteButton" class="button delete-button">Elimina el teu compte</button>
+                <div style="padding-top: 200px;" id="deleteModal" class="modal" style="display: none;">
+                    <div class="modal-content" style="width:50%;">
+                        <div style="background: linear-gradient(to bottom, #f80f0fdc 20%, #f34134e5 80%);" class="modal-header">
+                            <span class="close">×</span>
+                            <h2 style="margin-bottom: 0px;">&nbsp; &nbsp; Realment vols eliminar el teu compte?</h2>
+                            <h3 style="margin-top: 2px;">Una cop eliminat no es podrà tonar a recuperar </h3>
+                        </div>
+                        <div style="gap: 1rem; margin-top:20px;" class="form">
+                            <span>Introdueix la teva contrasenya per poder borrar el compte</span>
+                            <input style="width:65%" id="deletePassword" class="infoInput" type="password" placeholder="Contrasenya">
+                            <button class="button infoButton deleteColour" onclick="deleteUser()">Elimina</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -408,6 +413,21 @@ include('querys/profile-information.php');
             }
             span2.onclick = function() {
                 modal2.style.display = "none";
+                element.style.overflow = "scroll";
+            }
+        }
+
+        var btn3 = document.getElementById("deleteButton");
+        if (btn3 != null) {
+            var modal3 = document.getElementById("deleteModal");
+            var span3 = document.getElementsByClassName("close")[2];
+
+            btn3.onclick = function() {
+                modal3.style.display = "block";
+                element.style.overflow = "hidden";
+            }
+            span3.onclick = function() {
+                modal3.style.display = "none";
                 element.style.overflow = "scroll";
             }
         }
