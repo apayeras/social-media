@@ -10,6 +10,9 @@
     if (isset($_SESSION['login'])) {
         echo "<script type='text/javascript'>alert('L\'usuari o la contrasenya són incorrectes!');</script>";
     }
+    if (isset($_SESSION['delete'])) {
+        echo "<script type='text/javascript'>alert(\"El compte de l\'usuari ".$_SESSION['deleteName'].", ha estat eliminat satifactòriament!\");</script>";
+    }
     session_destroy();
     ?>
 </head>

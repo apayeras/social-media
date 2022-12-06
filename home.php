@@ -140,7 +140,7 @@ unset($_SESSION['perfilSeleccionat']);
               </div>
 
 
-              <div class="option" style="color: var(--discard);"><svg class="lnr lnr-trash">
+              <div onClick="discardMessage()" class="option" style="color: var(--discard);"><svg class="lnr lnr-trash">
                   <use xlink:href="#lnr-trash"></use>
                 </svg><span>Descartar missatge</span></div>
               <button class="button ps-button" <?php

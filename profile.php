@@ -23,6 +23,12 @@ include('querys/auxiliar/profile-information.php');
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="scripts/common-scripts.js"></script>
+    <?php 
+    if (isset($_SESSION['delete'])) {
+        echo "<script type='text/javascript'>alert(\"La contrasenya introduïda és incorrecte\");</script>";
+    }
+    unset($_SESSION['delete']);
+    ?>
 </head>
 
 <body>

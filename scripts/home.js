@@ -18,7 +18,9 @@ function sharePublication(id) {
     var text = document.getElementById('publicationText').value;
     location.replace(`querys/publication/insert-publication.php?text=${text}&historyId=${id}`);
 }
-
+function discardMessage(){
+    location.replace(`querys/auxiliar/home-history.php?text=&historyId=-1`);
+}
 document.addEventListener('mouseup', function (e) {
     var container = document.getElementById('divUsers');
     if (!container.contains(e.target)) {
