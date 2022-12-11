@@ -16,19 +16,18 @@ $id = 1;
 
 while ($row = mysqli_fetch_array($query)) {
     $_SESSION['idPerfil' . $id] = $row['id'];
-    $_SESSION['nomPerfil' . $id] = $row['nomPerfil'];
+    $_SESSION['namePerfil' . $id] = $row['nomPerfil'];
 
     $_SESSION['dataMax' . $id] = $row['dataMax'];
     $_SESSION['counter' . $id] = $row['counter'];
 
     if (isset($row['fotoPerfil'])) {
-        $_SESSION['fotoPerfil' . $id] = $row['fotoPerfil'];
+        $_SESSION['photoPerfil' . $id] = $row['fotoPerfil'];
     } else {
-        $_SESSION['fotoPerfil' . $id] = "imgs/blank-profile.png";
+        $_SESSION['photoPerfil' . $id] = "imgs/blank-profile.png";
     }
 
     $id += 1;
 }
-unset($_SESSION['nomPerfil' . $id]);
+unset($_SESSION['namePerfil' . $id]);
 closeDB();
-?>

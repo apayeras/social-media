@@ -39,11 +39,11 @@ if (isset($_GET['idchat'])) {
                     while (true) {
                         if (isset($_SESSION['idPerfil' . $counter])) {
                             echo "<div class='Chat-conversation'>
-                                <div onclick='selectChat(" . $_SESSION['idPerfil' . $counter] . ", \"" . $_SESSION['nomPerfil' . $counter] . "\", \"" . $_SESSION['fotoPerfil' . $counter] . "\", " . $_SESSION['counter' . $counter] . ")' class='User'>
-                                <img src='" . $_SESSION['fotoPerfil' . $counter] . "' alt='' class='Conversation-Image'>
+                                <div onclick='selectChat(" . $_SESSION['idPerfil' . $counter] . ", \"" . $_SESSION['namePerfil' . $counter] . "\", \"" . $_SESSION['photoPerfil' . $counter] . "\", " . $_SESSION['counter' . $counter] . ")' class='User'>
+                                <img src='" . $_SESSION['photoPerfil' . $counter] . "' alt='' class='Conversation-Image'>
                                 <div class='name'>
                                     <div>
-                                        <span>" . $_SESSION['nomPerfil' . $counter] . "</span>";
+                                        <span>" . $_SESSION['namePerfil' . $counter] . "</span>";
                             if ($_SESSION['counter' . $counter] > 0) {
                                 echo "<span class='counter'>" . $_SESSION['counter' . $counter] . "</span>";
                             }
