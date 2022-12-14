@@ -8,8 +8,9 @@ getDB();
 get_profile_card($con, $_SESSION['idProfile']);
 get_all_users($con, $_SESSION['user_id']);
 
-if (!isset($_SESSION['changeSuggestedFollows']) && $_SESSION['idProfile'] == $_SESSION['user_id']) {
+if (!isset($_SESSION['changeSuggestedFollows']) && $_SESSION['idProfile'] == $_SESSION['user_id'] || isset($_SESSION['changeFromMessages'])) {
     get_suggeted_follows($con, $_SESSION['user_id']);
+    unset($_SESSION['changeFromMessages']);
 } else {
     unset($_SESSION['changeSuggestedFollows']);
 }

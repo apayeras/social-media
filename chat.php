@@ -3,6 +3,7 @@ include('querys/auxiliar/chat-information.php');
 if (isset($_GET['idchat'])) {
     $_SESSION['perfilSeleccionat'] = $_GET['idchat'];
 }
+$_SESSION['changeFromMessages'] = true;
 ?>
 <!DOCTYPE html>
 <html>
